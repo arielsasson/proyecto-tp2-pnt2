@@ -5,9 +5,9 @@ class ProductoService {
 
     productoDaoMongoDb : ProductoDaoMongoDb = new ProductoDaoMongoDb();
 
-    async findAll()  : Promise<Producto[]> {
-        return  await this.productoDaoMongoDb.findAll();
-    }
+        async findAll()  : Promise<Producto[]> {
+            return  await this.productoDaoMongoDb.findAll();
+        }
 
     async add(payLoad : any) {
         await this.productoDaoMongoDb.add(new Producto(Number(payLoad.id),payLoad.nombre,Number(payLoad.importe)));
