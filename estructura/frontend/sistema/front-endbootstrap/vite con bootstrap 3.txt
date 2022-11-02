@@ -1,0 +1,41 @@
+// https://stackoverflow.com/questions/70147707/importing-bootstrapvue-in-vue-3
+// npm i -S bootstrap bootstrap-vue-3
+
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './routers/router.js'
+import { createPinia } from 'pinia'
+import BootstrapVue3 from "bootstrap-vue-3";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
+
+const app = createApp(App)
+app.use(createPinia())
+app.use(router)
+app.use(BootstrapVue3);
+app.mount('#app')
+
+
+
+/*
+{
+  "name": "sistema",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5050"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bootstrap-vue-3": "^0.1.12",
+    "pinia": "^2.0.13",
+    "vue": "^3.2.33",
+    "vue-router": "^4.0.14"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.1",
+    "vite": "^2.9.5"
+  }
+}
+*/
