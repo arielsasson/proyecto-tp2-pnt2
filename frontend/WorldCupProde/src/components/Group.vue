@@ -1,11 +1,12 @@
 <script setup lang="ts">
 
 const props = defineProps({
-  sarasa: String,
+    Letter: String
 })
 
 </script>
 
 <template>
-   <p>Grupo {{props.sarasa}}</p>
+   <p>Grupo {{Letter}}</p>
+   <li></li>
 </template>

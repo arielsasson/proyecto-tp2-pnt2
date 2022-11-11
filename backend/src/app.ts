@@ -6,15 +6,11 @@ import cors from 'cors'
 const app = express();
 const port = 3000;
 
-var corsOptions = {
-    origin: false,
-    optionsSuccessStatus: 200,
-  }
-app.use(cors(corsOptions));
-
 app.use(bodyParser.json());
 
 new GroupRouter(app,"/api/groups");
+
+app.use(cors());
 
 app.get('/', (req, res) =>{
     res.send('asdasd');

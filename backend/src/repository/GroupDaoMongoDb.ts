@@ -12,8 +12,9 @@ class GroupDaoMongoDb{
         if(db != undefined) {
             const collection = db.collection('Groups');    
             const findResult = (await collection.find({}).toArray()) 
+            console.log(findResult);
             findResult.forEach( e => 
-                productos.push(new Group(e.Letter, e.Teams)) );
+                productos.push(new Group(e.Group.Letter, e.Group.Teams)));
             this.conectarMongoDb.desconectar();    
         }
         return Promise.resolve(productos);

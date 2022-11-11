@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import GroupsView from './views/GroupsView.vue';
 </script>
 
-<template>
+<!-- <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
@@ -20,6 +21,10 @@ import HelloWorld from './components/HelloWorld.vue'
   </header>
 
   <RouterView />
+</template>  -->
+
+<template>
+  <GroupsView/>
 </template> 
 
 <style scoped>

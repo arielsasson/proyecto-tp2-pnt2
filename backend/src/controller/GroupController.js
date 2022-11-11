@@ -11,7 +11,10 @@ import GroupService from '../services/GroupService.js';
 class GroupController {
     static findAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            debugger;
             const groupService = new GroupService();
+            res.header('Access-Control-Allow-Origin', '*');
+            console.log(res);
             res.send(yield groupService.findAll());
         });
     }
