@@ -10,9 +10,6 @@ app.use(cors());
 app.get('/', (req, res) => {
     res.send('asdasd');
 });
-app.get('/asdasdasd', (req, res) => {
-    res.send('asdasd');
-});
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Sistema en escuchando en puerto 3000');
 });

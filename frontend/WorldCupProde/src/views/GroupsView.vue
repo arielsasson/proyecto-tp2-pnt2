@@ -1,22 +1,43 @@
-<script setup lang="ts">
+<script lang="ts">
 import Group from '../components/Group.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import axios from 'axios'
+import reactive from 'vue'
 
-onMounted(() => {
-  axios
-      .get('http://localhost:3000/api/groups')
-      .then(response => (console.log(response)))
-})
+export default {
+  setup() {
+    const groups: any[] = []
+
+    return {
+      groups
+    }
+  },
+
+  async mounted() {
+    const data = await axios.get('http://localhost:3000/api/groups')
+    this.groups = data.data
+    console.log(this.groups)
+  }
+}
+// onMounted(async () => {
+//   // axios
+//   //     .get('http://localhost:3000/api/groups')
+//   //     .then(response => groups = response.data)
+
+//   const data = await axios.get('http://localhost:3000/api/groups')
+//   groups = data.data
+//   console.log(groups)
+// })
 
 </script>
 
 <template>
   <main>
     <h1>Grupos</h1>
-    <Group :sarasa=grupo1></Group>
-    <Group :sarasa=grupo2></Group>
-    <Group :sarasa=grupo3></Group>
-    <Group :sarasa=grupo4></Group>
+    {{groups}}
+    <!-- <div v-for="group in groups">
+      
+      <Group :group=group.Letter></Group>
+    </div> -->
   </main>
 </template>
