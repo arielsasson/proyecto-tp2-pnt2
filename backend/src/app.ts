@@ -4,10 +4,10 @@ import bodyParser from 'body-parser';
 import cors from 'cors'
 
 const app = express();
-const port = 3000
+const port = 3000;
 
 var corsOptions = {
-    origin: '*',
+    origin: false,
     optionsSuccessStatus: 200,
   }
 app.use(cors(corsOptions));
@@ -20,6 +20,6 @@ app.get('/', (req, res) =>{
     res.send('asdasd');
 })
 
-app.listen(3000, () =>{
+app.listen(port, () =>{
     console.log('Sistema en escuchando en puerto 3000');    
 })
