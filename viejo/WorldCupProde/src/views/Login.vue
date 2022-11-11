@@ -122,11 +122,11 @@
   <script>
   import NavbarComponent from "../components/Navbar.vue";
   import FooterComponent from "../components/Footer.vue";
-  export default {
-    name: "login-page",
-    components: {
-      NavbarComponent,
-      FooterComponent
-    }
-  }
+   export default {
+     name: "login-page",
+     components: {
+       NavbarComponent,
+       FooterComponent
+     }
+   }
   </script>
