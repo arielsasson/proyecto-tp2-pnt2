@@ -3,17 +3,27 @@ import axios from 'axios'
 
 export default {
     setup() {
-
+        // ??
     },
     data() {
-
+        return {
+            registerForm: {},
+            mensajeError: ""
+        }
     },
     methods: {
-        async register() {
+        async registerButton() {
+
             try {
-                const data = await axios.post("http://localhost:3001/api/register", formRegistro)
+                if (this.registerForm.Password === this.registerForm.ConfirmPassword) {
+                    this.mensajeError = "Las contraseñas deben coincidir para poder registrarse."
+                    return
+                }
+                const data = await axios.post("http://localhost:3000/api/users", registerForm)
                 if (data.status == 200) {
-                    
+                    // logear al usuario automaticamente (volver a llamar al server? o hacerlo automatico desde el back?)
+                } else {
+                    this.mensajeError = "EL REGISTRO FUE RECHAZADO POR EL SERVIDOR" // continuar.
                 }
             } catch(e) {
                 console.log(e);
@@ -29,9 +39,9 @@ export default {
         <div class="p-8 lg:w-1/2 mx-auto">
             <div class="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
                 <p class="text-center text-sm text-gray-500 font-light"> Complete sus datos para registrarse</p>
-                <form class="mt-6">
+                <form @submit.prevent="registerButton" class="mt-6">
                     <div class="relative mt-3">
-                        <input
+                        <input v-model="registerForm.Username"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Email" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
@@ -43,7 +53,7 @@ export default {
                         </div>
                     </div>
                     <div class="relative mt-3">
-                        <input
+                        <input v-model="registerForm.Password"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Contraseña" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
@@ -55,7 +65,7 @@ export default {
                         </div>
                     </div>
                     <div class="relative mt-3">
-                        <input
+                        <input v-model="registerForm.ConfirmPassword"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Repita contraseña" />
                         <div class="absolute left-0 inset-y-0 flex items-center">

@@ -11,10 +11,11 @@ export const loginStore = defineStore('session', {
     actions: {
         async login(usuarioForm) {
             try {
-                const data = await axios.post("http://localhost:3001/api/users/login", usuarioForm);
+                const data = await axios.post("http://localhost:3000/api/users/login", usuarioForm);
                 if(data.status == 200) {
                     this.estaLogeado = true;
-                    this.usuario.email = usuario.email;
+                    console.log(data)
+                    // this.usuario.email = data;
                     console.log(data.data.token);
                     localStorage.setItem('usuario',JSON.stringify({ email:usuario.email, token:data.data.token }) )
                 } else {

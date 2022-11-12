@@ -1,10 +1,10 @@
 <script>
 import { RouterLink } from 'vue-router'
-import { loginStore } from "../store/loginStore.js"
+import { sessionStore } from "../store/sessionStore.js"
 import { storeToRefs } from "pinia"
 export default {
     setup() {
-        const store = loginStore();
+        const store = sessionStore();
         const { estaLogeado } = storeToRefs(store);
         const { login } = store;
         return {
@@ -15,15 +15,15 @@ export default {
     },
     data() {
         return {
-            usuarioForm: {},
+            loginForm: {},
             mensajeError: ""
         }
     },
     methods: {
-        async loginForm() {
-            await this.login(this.usuarioForm);
+        async loginButton() {
+            await this.login(this.loginForm);
             if (!this.estaLogeado) {
-                this.mensajeError = "Credenciales incorrectas"
+                this.mensajeError = "El usuario o la contraseña son incorrectos."
             } else {
                 this.$router.push('/') // a donde voy cuando termino de logearme
             }
@@ -39,9 +39,9 @@ export default {
                 <p class="text-center text-sm text-gray-500 font-light">
                     Ingrese su usuario y contraseña para continuar
                 </p>
-                <form @submit.prevent="loginForm" class="mt-6">
+                <form @submit.prevent="loginButton" class="mt-6">
                     <div class="relative">
-                        <input v-model="usuarioForm.email"
+                        <input v-model="loginForm.Username"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Email" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
@@ -53,7 +53,7 @@ export default {
                         </div>
                     </div>
                     <div class="relative mt-3">
-                        <input v-model="usuarioForm.password"
+                        <input v-model="loginForm.Password"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Password" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
@@ -76,7 +76,7 @@ export default {
                     </div>
                 </form>
                 <p class="text-center text-sm text-gray-500 font-light">
-                    ¿No tiene usuario? <RouterLink to="/register"> Regístrese en tan sólo unos instantes! </RouterLink>
+                    ¿No tiene usuario? <RouterLink to="/register"> Regístrese en tan sólo unos instantes! </RouterLink> <!-- PONER UN ESTILO DE LINK -->
                 </p>
                 {{ mensajeError }}
             </div>

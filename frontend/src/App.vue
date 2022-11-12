@@ -3,8 +3,8 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
 import { RouterLink, RouterView } from 'vue-router'
-import {storeToRefs} from "pinia"
-import {loginStore} from './store/loginStore.js'
+import { storeToRefs } from "pinia"
+import { sessionStore } from './store/sessionStore.js'
 
 </script>
 

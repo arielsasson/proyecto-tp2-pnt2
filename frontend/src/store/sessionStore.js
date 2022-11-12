@@ -3,7 +3,7 @@ import axios from 'axios'
 
 //copiado textual del profe!!
 
-export const loginStore = defineStore('counter', {
+export const sessionStore = defineStore('session', {
     state: () => {
         return {
             usuario: {},
@@ -11,14 +11,16 @@ export const loginStore = defineStore('counter', {
         }
     },
     actions: {
-        async login(usuario) {
+        async login(usuarioForm) {
             try {
-                const data = await axios.post("http://localhost:3001/api/login", usuario);
+                const data = await axios.post("http://localhost:3000/api/users/login", usuarioForm);
+                console.log(data)
                 if(data.status == 200) {
                     this.estaLogeado = true;
-                    this.usuario.email = usuario.email;
-                    console.log(data.data.token); // WTF
-                    localStorage.setItem('usuario',JSON.stringify({email:usuario.email,token:data.data.token}) )
+                    this.usuario.email = usuarioForm.Username;
+                    console.log(data.data.data.token)
+                    this.usuario.token = data.data.data.token;
+                    localStorage.setItem('usuario',JSON.stringify({email:this.usuario.email,token:data.data.token}) )
                 } else {
                     this.estaLogeado = false;
                 }
