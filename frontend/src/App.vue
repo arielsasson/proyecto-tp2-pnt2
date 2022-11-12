@@ -9,6 +9,7 @@ import { sessionStore } from './store/sessionStore.js'
 </script>
 
 <template>
+   <!-- aca iria un navbar, botones con vue-if para registrarse logearse y deslogearse, hacer una nueva prediccion (GroupsView), ver predicciones mias y de otros, etc -->
   <RouterView />
 </template>
 

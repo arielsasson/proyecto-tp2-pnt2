@@ -22,8 +22,9 @@ export default {
                 const data = await axios.post("http://localhost:3000/api/users", registerForm)
                 if (data.status == 200) {
                     // logear al usuario automaticamente (volver a llamar al server? o hacerlo automatico desde el back?)
+                    this.$router.push('/login') // la otra es redirigir al usuario a que se loguee. Debiera haber un feedback de si el registro fue correcto.
                 } else {
-                    this.mensajeError = "EL REGISTRO FUE RECHAZADO POR EL SERVIDOR" // continuar.
+                    this.mensajeError = "Registro rechazado." // continuar.. usuario repetido? dar mejor feedback.
                 }
             } catch(e) {
                 console.log(e);
