@@ -16,6 +16,12 @@ class UsersController{
         else
             return res.sendStatus(401);
     }
+
+    static async add(req:express.Request,res:express.Response) {
+        const userService : UserService = new UserService();
+        await userService.add(req.body)
+        res.send("ok");
+    }
 }
 
 export {UsersController}

@@ -28,5 +28,16 @@ class UsersDaoMongoDb {
             return Promise.resolve(user);
         });
     }
+    add(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const db = yield this.conectarMongoDb.conectar();
+            if (db != undefined) {
+                const collection = db.collection('Users');
+                yield collection.insertOne(user);
+                this.conectarMongoDb.desconectar();
+            }
+            return Promise.resolve(true);
+        });
+    }
 }
 export { UsersDaoMongoDb };

@@ -20,10 +20,16 @@ class UsersController {
                     error: null,
                     data: { token }
                 });
-                // return res.sendStatus(200);
             }
             else
                 return res.sendStatus(401);
+        });
+    }
+    static add(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userService = new UserService();
+            yield userService.add(req.body);
+            res.send("ok");
         });
     }
 }

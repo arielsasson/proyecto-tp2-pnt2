@@ -1,6 +1,7 @@
 import { UsersDaoMongoDb } from "../repository/UsersDaoMongoDb.js";
 import UserLoginDTO from "../dto/UserLoginDTO.js";
 import jwt from 'jsonwebtoken';
+import User from "../models/User.js";
 
 
 class UserService {
@@ -21,6 +22,10 @@ class UserService {
         else{
             return Promise.resolve(new UserLoginDTO("", user.Username,"Username o password incorrectos"))
         }
+    }
+
+    async add(user : User)  : Promise<Boolean> {
+        return await this.usersDaoMongoDb.add(user);
     }
 }
 

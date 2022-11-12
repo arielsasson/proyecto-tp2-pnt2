@@ -19,6 +19,17 @@ class UsersDaoMongoDb{
         }
         return Promise.resolve(user);
     }
+
+    public async add (user : User) : Promise<Boolean> {
+        const db = await this.conectarMongoDb.conectar();
+        if(db != undefined) {
+            const collection = db.collection('Users');    
+            await collection.insertOne(user)
+            
+            this.conectarMongoDb.desconectar();    
+        }
+        return Promise.resolve(true);
+    }
 }
 
 export {UsersDaoMongoDb} 

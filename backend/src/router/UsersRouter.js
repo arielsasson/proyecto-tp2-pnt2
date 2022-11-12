@@ -6,8 +6,10 @@ class UsersRouter {
         this.configurarRutas();
     }
     configurarRutas() {
-        this.app.route(this.direccion)
+        this.app.route(this.direccion + "/login")
             .post(UsersController.Login);
+        this.app.route(this.direccion)
+            .post(UsersController.add);
         return this.app;
     }
 }
