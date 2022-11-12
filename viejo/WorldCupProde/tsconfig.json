@@ -12,9 +12,10 @@
     }
   ],
   "compilerOptions": {
-    "allowJs": true
+    "allowJs": true,
   },
   "include": [
-    "src", "typings.d.ts"
+    "src",
+    "typing.d.ts"
   ]
 }

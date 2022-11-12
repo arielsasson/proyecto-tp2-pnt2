@@ -1,4 +1,6 @@
 <script lang="ts">
+import Group from '../components/Group.vue'
+import {onMounted} from 'vue'
 import axios from 'axios'
 
 export default {
