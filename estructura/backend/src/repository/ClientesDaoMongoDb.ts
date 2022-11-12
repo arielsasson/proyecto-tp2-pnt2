@@ -21,7 +21,7 @@ class ClienteDaoMongoDb implements Dao<Cliente,Number>{
         if(db != undefined) {
             const collection = db.collection('clientes');    
             const findResult = (await collection.find({}).toArray()) 
-            findResult.forEach( e => clientes.push(new Cliente(e.numero)) );
+            findResult.forEach(e => clientes.push(new Cliente(e.numero)) );
             this.conectarMongoDb.desconectar();    
         }
         return Promise.resolve(clientes);
