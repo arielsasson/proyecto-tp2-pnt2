@@ -2,7 +2,6 @@
 import Group from '../components/Group.vue'
 import {onMounted} from 'vue'
 import axios from 'axios'
-import reactive from 'vue'
 
 export default {
   setup() {
