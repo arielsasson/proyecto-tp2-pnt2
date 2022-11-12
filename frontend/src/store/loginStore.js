@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+//copiado textual del profe!!
+
 export const loginStore = defineStore('counter', {
     state: () => {
         return {
@@ -11,12 +13,12 @@ export const loginStore = defineStore('counter', {
     actions: {
         async login(usuario) {
             try {
-                const data = await axios.post("http://localhost:3001/api/login", usuario);
+                const data = await axios.post("http://localhost:3001/api/login",usuario);
                 if(data.status == 200) {
                     this.estaLogeado = true;
                     this.usuario.email = usuario.email;
                     console.log(data.data.token);
-                    localStorage.setItem('usuario',JSON.stringify({ email:usuario.email, token:data.data.token }) )
+                    localStorage.setItem('usuario',JSON.stringify({email:usuario.email,token:data.data.token}) )
                 } else {
                     this.estaLogeado = false;
                 }
