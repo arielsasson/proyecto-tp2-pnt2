@@ -1,6 +1,5 @@
 {
   "files": [],
-  "allowJs": true,
   "references": [
     {
       "path": "./tsconfig.config.json"
@@ -11,5 +10,11 @@
     {
       "path": "./tsconfig.vitest.json"
     }
+  ],
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "include": [
+    "src", "typings.d.ts"
   ]
 }
