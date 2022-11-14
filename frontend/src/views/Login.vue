@@ -2,7 +2,9 @@
 import { RouterLink } from 'vue-router'
 import { sessionStore } from "../store/sessionStore.js"
 import { storeToRefs } from "pinia"
+
 export default {
+    name: "login",
     setup() {
         const store = sessionStore();
         const { estaLogeado } = storeToRefs(store);

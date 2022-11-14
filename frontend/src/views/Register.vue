@@ -1,9 +1,23 @@
 <script>
-import axios from 'axios'
+import { sessionStore } from "../store/sessionStore.js"
+import { storeToRefs } from "pinia"
+import ModalRegister from "../components/ModalRegister.vue"
+
 
 export default {
+    name: "register",
     setup() {
-        // ??
+        const store = sessionStore();
+        const { activeSession } = storeToRefs(store);
+        const { login } = store;
+        return {
+            store,
+            login,
+            activeSession
+        }
+    },
+    components: {
+        ModalRegister
     },
     data() {
         return {
@@ -13,22 +27,33 @@ export default {
     },
     methods: {
         async registerButton() {
-
             try {
+                if (!!this.registerForm.Username || !!this.registerForm.Password || !!this.registerForm.ConfirmPassword) {
+                    this.mensajeError = "Debe completar todos los campos."
+                }
                 if (this.registerForm.Password === this.registerForm.ConfirmPassword) {
                     this.mensajeError = "Las contraseñas deben coincidir para poder registrarse."
                     return
                 }
-                const data = await axios.post("http://localhost:3000/api/users", registerForm)
-                if (data.status == 200) {
-                    // logear al usuario automaticamente (volver a llamar al server? o hacerlo automatico desde el back?)
-                    this.$router.push('/login') // la otra es redirigir al usuario a que se loguee. Debiera haber un feedback de si el registro fue correcto.
+                const res = await axios.post("http://localhost:3000/api/users", registerForm)
+                if (res.status == 200) {
+                    this.$refs.modal.openModal(true)
                 } else {
-                    this.mensajeError = "Registro rechazado." // continuar.. usuario repetido? dar mejor feedback.
+                    this.mensajeError = "Registro rechazado."
+                    this.$refs.modal.openModal(false)
+                    // continuar.. usuario repetido? dar mejor feedback.
                 }
             } catch(e) {
                 console.log(e);
             }
+        },
+        async tryLogin() {
+            await this.login(this.registerForm);
+                    if (!this.activeSession) {
+                        this.$router.push('/login')
+                    } else {
+                        this.$router.push('/')
+                    }
         }
     }
 }
@@ -36,7 +61,8 @@ export default {
 </script>
 
 <template>
-    <div class="bg-gray-800">
+    <ModalRegister ref="modal"/>
+    <div class="bg-gray-800"> <!-- fondo oscuro? -->
         <div class="p-8 lg:w-1/2 mx-auto">
             <div class="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
                 <p class="text-center text-sm text-gray-500 font-light"> Complete sus datos para registrarse</p>
@@ -77,9 +103,12 @@ export default {
                             </svg>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center mt-8"> <button
+                    <div class="flex items-center justify-center mt-8">
+                        <button
                             class="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                            Crear cuenta </button> </div>
+                            Crear cuenta
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
