@@ -19,5 +19,5 @@ app.get('/', (req, res) =>{
 })
 
 app.listen(port, () =>{
-    console.log('Sistema en escuchando en puerto 3000');    
+    console.log('Sistema escuchando en puerto 3000');    
 })

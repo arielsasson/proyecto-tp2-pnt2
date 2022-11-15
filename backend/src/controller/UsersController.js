@@ -28,8 +28,15 @@ class UsersController {
     static add(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userService = new UserService();
-            yield userService.add(req.body);
-            res.send("ok");
+            const result = yield userService.add(req.body);
+            result ? res.send("ok") : res.send("The user already exists in the db");
+        });
+    }
+    static get(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const userService = new UserService();
+            const user = yield userService.get(req.params.username);
+            res.send(user);
         });
     }
 }

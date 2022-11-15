@@ -5,7 +5,7 @@ class GroupService {
     groupDaoMongoDb : GroupDaoMongoDb = new GroupDaoMongoDb();
 
     async findAll()  : Promise<Group[]> {
-        return  await this.groupDaoMongoDb.findAll();
+        return await this.groupDaoMongoDb.findAll();
     }
 }
 
