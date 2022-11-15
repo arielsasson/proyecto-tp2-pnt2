@@ -1,15 +1,19 @@
+
 <script setup>
+
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
 import { RouterLink, RouterView } from 'vue-router'
 import {storeToRefs} from "pinia"
 import {loginStore} from './store/loginStore.js'
+import Group from './components/Group.vue'
 
 </script>
 
 <template>
   <RouterView />
+  <Group> </Group>
 </template>
 
 <!-- <style scoped>
