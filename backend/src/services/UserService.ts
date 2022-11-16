@@ -8,13 +8,14 @@ class UserService {
     usersDaoMongoDb : UsersDaoMongoDb = new UsersDaoMongoDb();
 
     async login(username: string, password: string)  : Promise<UserLoginDTO> {
+        const user = await this.usersDaoMongoDb.findByUsername(username);
+        if(user.Password === password){ // user !== null &&
         const user = await this.usersDaoMongoDb.findByUsername(username, false);
         if(user.Password === password){
             const token = jwt.sign({
                 name: user.Username,
                 id: user.Password
             }, "secret")
-
             return Promise.resolve(new UserLoginDTO(token, user.Username, ""))
         }
         else{
@@ -29,14 +30,13 @@ class UserService {
     }
 
     async add(user : User)  : Promise<Boolean> {
+        return await this.usersDaoMongoDb.add(user);
         const dbUser = await this.usersDaoMongoDb.findByUsername(user.Username, false);
-
         if(dbUser == null){
             const created = await this.usersDaoMongoDb.add(user);
 
             return Promise.resolve(created)
         }
-        
         return Promise.resolve(false);
     }
 }

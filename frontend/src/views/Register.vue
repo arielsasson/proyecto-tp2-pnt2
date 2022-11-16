@@ -1,37 +1,80 @@
 <script>
-import axios from 'axios'
+import { sessionStore } from "../store/sessionStore.js"
+import { storeToRefs } from "pinia"
+import ModalRegister from "../components/ModalRegister.vue"
+// import axios from 'axios'
+import UserService from "../services/UserService.js"
 
 export default {
+    name: "register",
     setup() {
-
+        const store = sessionStore();
+        const { activeSession } = storeToRefs(store);
+        const { login } = store;
+        return {
+            store,
+            login,
+            activeSession
+        }
+    },
+    components: {
+        ModalRegister
     },
     data() {
-
+        return {
+            registerForm: {},
+            mensajeError: "",
+            disabled: false
+        }
     },
     methods: {
-        async register() {
+        async registerButton() {
+            if (this.disabled) return
             try {
-                const data = await axios.post("http://localhost:3001/api/register", formRegistro)
-                if (data.status == 200) {
-                    
+                if (!this.registerForm.Username || !this.registerForm.Password || !this.registerForm.ConfirmPassword) {
+                    this.mensajeError = "Debe completar todos los campos."
+                    return
+                }
+                if (this.registerForm.Password !== this.registerForm.ConfirmPassword) {
+                    this.mensajeError = "Las contraseñas deben coincidir para poder registrarse."
+                    return
+                }
+                const res = await UserService.register(this.registerForm)
+                this.disabled = true
+                if (res.status == 200) {
+                    this.$refs.modal.openModal(true)
+                } else {
+                    this.mensajeError = "Registro rechazado."
+                    await this.$refs.modal.openModal(false)
+                    this.disabled = false
+                    // continuar.. usuario repetido? dar mejor feedback.
                 }
             } catch(e) {
+                this.disabled = false
                 console.log(e);
+            }
+        },
+        async tryLogin() {
+            await this.login(this.registerForm);
+            if (!this.activeSession) {
+                this.$router.push('/login')
+            } else {
+                this.$router.push('/')
             }
         }
     }
 }
-
 </script>
 
 <template>
-    <div class="bg-gray-800">
+    <ModalRegister ref="modal"/>
+    <div class="bg-gray-800"> <!-- fondo oscuro? -->
         <div class="p-8 lg:w-1/2 mx-auto">
             <div class="bg-gray-100 rounded-b-lg py-12 px-4 lg:px-24">
                 <p class="text-center text-sm text-gray-500 font-light"> Complete sus datos para registrarse</p>
-                <form class="mt-6">
+                <form @submit.prevent="registerButton" class="mt-6">
                     <div class="relative mt-3">
-                        <input
+                        <input v-model="registerForm.Username"
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Email" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
@@ -43,6 +86,7 @@ export default {
                         </div>
                     </div>
                     <div class="relative mt-3">
+                        <input v-model="registerForm.Password"
                         <input
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Contraseña" />
@@ -55,6 +99,7 @@ export default {
                         </div>
                     </div>
                     <div class="relative mt-3">
+                        <input v-model="registerForm.ConfirmPassword"
                         <input
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Repita contraseña" />
@@ -66,6 +111,14 @@ export default {
                             </svg>
                         </div>
                     </div>
+                    <div class="flex items-center justify-center mt-8">
+                        <button
+                            class="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+                            Crear cuenta
+                        </button>
+                    </div>
+                </form>
+                {{ mensajeError }}
                     <div class="flex items-center justify-center mt-8"> <button
                             class="text-white py-2 px-4 uppercase rounded bg-indigo-500 hover:bg-indigo-600 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                             Crear cuenta </button> </div>

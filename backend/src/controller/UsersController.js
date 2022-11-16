@@ -28,6 +28,9 @@ class UsersController {
     static add(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userService = new UserService();
+            res.header('Access-Control-Allow-Origin', '*');
+            yield userService.add(req.body);
+            res.send("ok");
             const result = yield userService.add(req.body);
             result ? res.send("ok") : res.send("The user already exists in the db");
         });

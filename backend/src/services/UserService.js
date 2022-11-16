@@ -16,6 +16,7 @@ class UserService {
     }
     login(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.usersDaoMongoDb.findByUsername(username);
             const user = yield this.usersDaoMongoDb.findByUsername(username, false);
             if (user.Password === password) {
                 const token = jwt.sign({

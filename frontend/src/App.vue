@@ -3,12 +3,13 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 
 import { RouterLink, RouterView } from 'vue-router'
-import {storeToRefs} from "pinia"
-import {loginStore} from './store/loginStore.js'
+import { storeToRefs } from "pinia"
+import { sessionStore } from './store/sessionStore.js'
 
 </script>
 
 <template>
+   <!-- aca iria un navbar, botones con vue-if para registrarse logearse y deslogearse, hacer una nueva prediccion (GroupsView), ver predicciones mias y de otros, etc -->
   <RouterView />
 </template>
 
