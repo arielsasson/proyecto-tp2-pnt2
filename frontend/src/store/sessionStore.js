@@ -1,5 +1,8 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import UserService from '../services/UserService'
+
+// actualizar, logica extraida en UserService.js
 
 export const sessionStore = defineStore('session', {
     state: () => {
@@ -10,17 +13,18 @@ export const sessionStore = defineStore('session', {
     },
     actions: {
         async login(form) {
+            if (this.activeSession) return
             try {
-                const res = await axios.post("http://localhost:3000/api/users/login", form);
+                const res = await UserService.login(form)
                 if(res.status == 200) {
                     this.activeSession = true;
 
                     // extraer de los headers, no del body!
-
                     this.usuario.email = res.data.data.email;
                     this.usuario.token = res.data.data.token;
 
                     // asi se haria con el localstorage
+
                     // localStorage.setItem('user',JSON.stringify({
                     //     email : res.data.data.email,
                     //     token : res.data.data.token
@@ -34,7 +38,10 @@ export const sessionStore = defineStore('session', {
         },
         async logout() {
             this.activeSession = false;
-            // location.reload();
+            this.usuario = {}
+            const res = await UserService.logout()
+            location.reload();
+
             // localStorage.removeItem('user');
         }
     }

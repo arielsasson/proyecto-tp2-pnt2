@@ -2,7 +2,8 @@
 import { sessionStore } from "../store/sessionStore.js"
 import { storeToRefs } from "pinia"
 import ModalRegister from "../components/ModalRegister.vue"
-
+// import axios from 'axios'
+import UserService from "../services/UserService.js"
 
 export default {
     name: "register",
@@ -22,42 +23,47 @@ export default {
     data() {
         return {
             registerForm: {},
-            mensajeError: ""
+            mensajeError: "",
+            disabled: false
         }
     },
     methods: {
         async registerButton() {
+            if (this.disabled) return
             try {
-                if (!!this.registerForm.Username || !!this.registerForm.Password || !!this.registerForm.ConfirmPassword) {
+                if (!this.registerForm.Username || !this.registerForm.Password || !this.registerForm.ConfirmPassword) {
                     this.mensajeError = "Debe completar todos los campos."
+                    return
                 }
-                if (this.registerForm.Password === this.registerForm.ConfirmPassword) {
+                if (this.registerForm.Password !== this.registerForm.ConfirmPassword) {
                     this.mensajeError = "Las contraseñas deben coincidir para poder registrarse."
                     return
                 }
-                const res = await axios.post("http://localhost:3000/api/users", registerForm)
+                const res = await UserService.register(this.registerForm)
+                this.disabled = true
                 if (res.status == 200) {
                     this.$refs.modal.openModal(true)
                 } else {
                     this.mensajeError = "Registro rechazado."
-                    this.$refs.modal.openModal(false)
+                    await this.$refs.modal.openModal(false)
+                    this.disabled = false
                     // continuar.. usuario repetido? dar mejor feedback.
                 }
             } catch(e) {
+                this.disabled = false
                 console.log(e);
             }
         },
         async tryLogin() {
             await this.login(this.registerForm);
-                    if (!this.activeSession) {
-                        this.$router.push('/login')
-                    } else {
-                        this.$router.push('/')
-                    }
+            if (!this.activeSession) {
+                this.$router.push('/login')
+            } else {
+                this.$router.push('/')
+            }
         }
     }
 }
-
 </script>
 
 <template>
@@ -110,6 +116,7 @@ export default {
                         </button>
                     </div>
                 </form>
+                {{ mensajeError }}
             </div>
         </div>
     </div>

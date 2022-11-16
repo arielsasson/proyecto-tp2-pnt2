@@ -1,35 +1,25 @@
-  
 <script>
 export default {
     name: "modalRegister",
-    setup() {
-        const feedbackExitoso = "El registro de usuario fue exitoso, procediendo a iniciar sesión."
-        const feedbackFallido = "El registro de usuario no fue satisfactorio. Inténtelo de nuevo."
-        var feedbackMessage = ""
-    },
     data() {
         return {
             showModal: false,
-            ok: false
+            feedbackSucceeded : "El registro de usuario fue exitoso, procediendo a iniciar sesión.",
+            feedbackFailed : "El registro de usuario no fue satisfactorio. Inténtelo de nuevo.",
+            feedbackMessage : ""
         }
     },
     methods: {
-        openModal: (success) => {
-            success ? feedbackMessage = feedbackExitoso : feedbackMessage = feedbackFallido
+        async openModal(success) {
+            success ? this.feedbackMessage = this.feedbackSucceeded : this.feedbackMessage = this.feedbackFailed
             this.showModal = true
         },
-        closeModal: () => {
+        async closeModal() {
             this.showModal = false
             this.$parent.tryLogin()
             
         }
-    },
-    // props: defineProps({
-    //     registroExitoso: Boolean
-    // })
-    // props: {
-    //     success: Boolean
-    // }
+    }
 }
 </script>
 

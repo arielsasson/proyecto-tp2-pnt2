@@ -9,7 +9,7 @@ class UserService {
 
     async login(username: string, password: string)  : Promise<UserLoginDTO> {
         const user = await this.usersDaoMongoDb.findByUsername(username);
-        if(user.Password === password){
+        if(user.Password === password){ // user !== null &&
             const token = jwt.sign({
                 name: user.Username,
                 id: user.Password
@@ -22,6 +22,7 @@ class UserService {
     }
 
     async add(user : User)  : Promise<Boolean> {
+        // chequear que el usuario no exista!
         return await this.usersDaoMongoDb.add(user);
     }
 }

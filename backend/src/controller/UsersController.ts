@@ -2,7 +2,7 @@ import UserService from "../services/UserService.js";
 import express from 'express'
 
 class UsersController{
-    static async Login(req, res) {
+    static async login(req, res) {
         const userService : UserService = new UserService();
         res.header('Access-Control-Allow-Origin', '*')
         const loginResult = await userService.login(req.body.Username, req.body.Password)
@@ -17,8 +17,9 @@ class UsersController{
             return res.sendStatus(401);
     }
 
-    static async add(req:express.Request,res:express.Response) {
+    static async add(req: express.Request, res: express.Response) {
         const userService : UserService = new UserService();
+        res.header('Access-Control-Allow-Origin', '*')
         await userService.add(req.body)
         res.send("ok");
     }

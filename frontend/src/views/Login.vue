@@ -7,25 +7,25 @@ export default {
     name: "login",
     setup() {
         const store = sessionStore();
-        const { estaLogeado } = storeToRefs(store);
+        const { activeSession } = storeToRefs(store);
         const { login } = store;
         return {
             store,
             login,
-            estaLogeado
+            activeSession
         }
     },
     data() {
         return {
-            loginForm: {},
-            mensajeError: ""
+            loginForm : {},
+            errorMessage : ""
         }
     },
     methods: {
         async loginButton() {
             await this.login(this.loginForm);
-            if (!this.estaLogeado) {
-                this.mensajeError = "El usuario o la contraseña son incorrectos."
+            if (!this.activeSession) {
+                this.errorMessage = "El usuario o la contraseña son incorrectos."
             } else {
                 this.$router.push('/') // a donde voy cuando termino de logearme
             }
@@ -80,7 +80,7 @@ export default {
                 <p class="text-center text-sm text-gray-500 font-light">
                     ¿No tiene usuario? <RouterLink to="/register"> Regístrese en tan sólo unos instantes! </RouterLink> <!-- PONER UN ESTILO DE LINK -->
                 </p>
-                {{ mensajeError }}
+                {{ errorMessage }}
             </div>
         </div>
     </div>
