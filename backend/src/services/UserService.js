@@ -17,6 +17,7 @@ class UserService {
     login(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.usersDaoMongoDb.findByUsername(username);
+            const user = yield this.usersDaoMongoDb.findByUsername(username, false);
             if (user.Password === password) {
                 const token = jwt.sign({
                     name: user.Username,
@@ -29,9 +30,20 @@ class UserService {
             }
         });
     }
+    get(username) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield this.usersDaoMongoDb.findByUsername(username, true);
+            return Promise.resolve(user);
+        });
+    }
     add(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.usersDaoMongoDb.add(user);
+            const dbUser = yield this.usersDaoMongoDb.findByUsername(user.Username, false);
+            if (dbUser == null) {
+                const created = yield this.usersDaoMongoDb.add(user);
+                return Promise.resolve(created);
+            }
+            return Promise.resolve(false);
         });
     }
 }

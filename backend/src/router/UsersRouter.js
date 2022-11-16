@@ -8,6 +8,8 @@ class UsersRouter {
     configurarRutas() {
         this.app.route(this.direccion + "/login")
             .post(UsersController.Login);
+        this.app.route(this.direccion + "/:username")
+            .get(UsersController.get);
         this.app.route(this.direccion)
             .post(UsersController.add);
         return this.app;

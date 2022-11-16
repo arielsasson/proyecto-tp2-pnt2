@@ -22,6 +22,15 @@ class UsersController{
         res.header('Access-Control-Allow-Origin', '*')
         await userService.add(req.body)
         res.send("ok");
+        const result = await userService.add(req.body)
+
+        result ? res.send("ok") : res.send("The user already exists");
+    }
+
+    static async get(req: express.Request, res:express.Response){
+        const userService : UserService = new UserService();
+        const user = await userService.get(req.params.username)
+        res.send(user);
     }
 }
 

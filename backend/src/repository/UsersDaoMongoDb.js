@@ -13,15 +13,23 @@ class UsersDaoMongoDb {
     constructor() {
         this.conectarMongoDb = new ConectarMongoDb();
     }
-    findByUsername(username) {
+    findByUsername(username, withPredictions) {
         return __awaiter(this, void 0, void 0, function* () {
             const db = yield this.conectarMongoDb.conectar();
-            let user = new User("", "");
+            let user = new User("", "", []);
             if (db != undefined) {
                 const collection = db.collection('Users');
-                const findResult = yield collection.findOne({ Username: username });
-                if (findResult != null) {
-                    user = new User(findResult.Username, findResult.Password);
+                if (withPredictions) {
+                    const findResult = yield collection.findOne({ Username: username });
+                    if (findResult != null) {
+                        user = new User(findResult.Username, findResult.Password, findResult.Predictions);
+                    }
+                }
+                else {
+                    const findResult = yield collection.findOne({ Username: username }, { projection: { Predictions: 0 } });
+                    if (findResult != null) {
+                        user = new User(findResult.Username, findResult.Password, []);
+                    }
                 }
                 this.conectarMongoDb.desconectar();
             }

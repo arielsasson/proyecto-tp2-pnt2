@@ -6,15 +6,24 @@ class UsersDaoMongoDb{
 
     private conectarMongoDb : ConectarMongoDb = new ConectarMongoDb();
 
-    public async findByUsername (username : string) : Promise<User> {
+    public async findByUsername (username : string, withPredictions: boolean) : Promise<User> {
         const db = await this.conectarMongoDb.conectar();
-        let user = new User("", "");
+        let user = new User("", "", []);
         if(db != undefined) {
             const collection = db.collection('Users');    
-            const findResult = await collection.findOne({Username:username})
-            if(findResult != null) {
-                user = new User(findResult.Username, findResult.Password)
+            if(withPredictions){
+                const findResult = await collection.findOne({Username:username})
+                if(findResult != null) {
+                    user = new User(findResult.Username, findResult.Password, findResult.Predictions)
+                }
             }
+            else{
+                const findResult = await collection.findOne({Username:username}, {projection : {Predictions: 0}})
+                if(findResult != null) {
+                    user = new User(findResult.Username, findResult.Password, [])
+                }
+            }
+          
             this.conectarMongoDb.desconectar();    
         }
         return Promise.resolve(user);
