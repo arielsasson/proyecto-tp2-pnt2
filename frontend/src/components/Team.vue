@@ -3,21 +3,39 @@
 export default {
     name: "team",
     props: ['team'],
+    inject: ["eventHub"],
     data() {
         return {
             hover: false,
-            position: null
+            position: null,
+            selected: false // esto se hace true 
         };
     },
+    methods: {
+        getImgUrl(img) {
+            return './src/assets/img/teams/' + img + '.gif'
+        },
+        select() {
+            console.log("Hola")
+            this.$parent.teamSelected(team.Name)
+        },
+        toggleSelected() {
+            this.selected = !this.selected
+        }
+    }
 };
 
 
 </script>
 
 <template>
-    <div>
-        <p @mouseenter="hover = true" @mouseleave="hover = false" class="div" :class="{'div-hover': hover}">
-            {{ team.Name }}</p>
+    <div class="">
+            <img 
+                class=" rounded-md ml-3 h-8 md:h-25 md:w-25 bg-white"
+                :src="getImgUrl(team.Name)"/>
+                <p @mouseenter="hover = true" @mouseleave="hover = false" class="div  cursor-pointer" :class="{'div-hover': hover}" 
+                v-on:click="select">
+                {{ team.Name }} </p>
     </div>
 </template>
 

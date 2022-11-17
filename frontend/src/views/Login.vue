@@ -55,8 +55,8 @@ export default {
                     </div>
                     <div class="relative mt-3">
                         <input v-model="loginForm.Password"
-                            class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
-                            id="username" type="text" placeholder="Password" />
+                            class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline font-mono js-password"
+                            id="password" type="password" placeholder="Password" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 ml-3 text-gray-400 p-1"
                                 viewBox="0 0 20 20" fill="currentColor">

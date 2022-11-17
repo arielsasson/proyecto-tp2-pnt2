@@ -1,5 +1,5 @@
 
-<script setup>
+<script>
 
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
@@ -9,6 +9,29 @@ import { storeToRefs } from "pinia"
 import { sessionStore } from './store/sessionStore.js'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
+
+export default {
+  name: "App",
+  components: {
+    Navbar,
+    Footer
+  },
+  data() {
+    return {
+      eventHub: new Vue()
+    };
+  },
+  provide() {
+    return {
+      eventHub: this.eventHub
+    };
+  },
+  methods: {
+    // setRandomValue() {
+    //   this.eventHub.$emit("update:msg", Math.random() * 100);
+    // }
+  }
+};
 
 </script>
 
