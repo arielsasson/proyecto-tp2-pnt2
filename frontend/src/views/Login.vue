@@ -26,8 +26,7 @@ export default {
             await this.login(this.loginForm);
             if (!this.activeSession) {
                 this.errorMessage = "El usuario o la contraseña son incorrectos."
-            usuarioForm: {},
-            mensajeError: ""
+            }
         }
     }
 }
@@ -43,9 +42,6 @@ export default {
                 <form @submit.prevent="loginButton" class="mt-6">
                     <div class="relative">
                         <input v-model="loginForm.Username"
-                <form @submit.prevent="loginForm" class="mt-6">
-                    <div class="relative">
-                        <input
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Email" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
@@ -58,7 +54,6 @@ export default {
                     </div>
                     <div class="relative mt-3">
                         <input v-model="loginForm.Password"
-                        <input
                             class="appearance-none border pl-12 border-gray-100 shadow-sm focus:shadow-md focus:placeholder-gray-600  transition  rounded-md w-full py-3 text-gray-600 leading-tight focus:outline-none focus:ring-gray-600 focus:shadow-outline"
                             id="username" type="text" placeholder="Password" />
                         <div class="absolute left-0 inset-y-0 flex items-center">
