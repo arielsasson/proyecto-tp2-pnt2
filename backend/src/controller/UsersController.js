@@ -9,16 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import UserService from "../services/UserService.js";
 class UsersController {
-    static Login(req, res) {
+    static login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userService = new UserService();
-            res.header('Access-Control-Allow-Origin', '*');
+            res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
             const loginResult = yield userService.login(req.body.Username, req.body.Password);
             if (loginResult.Error === "") {
                 const token = loginResult.DataToken;
-                res.setHeader('auth-token', token).json({
+                res.setHeader("auth-token", token).json({
                     error: null,
-                    data: { token }
+                    data: { token },
                 });
             }
             else
@@ -28,11 +28,11 @@ class UsersController {
     static add(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userService = new UserService();
-            res.header('Access-Control-Allow-Origin', '*');
+            res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
             yield userService.add(req.body);
             res.send("ok");
             const result = yield userService.add(req.body);
-            result ? res.send("ok") : res.send("The user already exists in the db");
+            result ? res.send("OK") : res.send("El usuario ya existe.");
         });
     }
     static get(req, res) {

@@ -13,7 +13,7 @@ export const loginStore = defineStore('counter', {
     actions: {
         async login(usuario) {
             try {
-                const data = await axios.post("http://localhost:3001/api/login",usuario);
+                const data = await axios.post("http://localhost:3001/api/login", usuario);
                 if(data.status == 200) {
                     this.estaLogeado = true;
                     this.usuario.email = usuario.email;

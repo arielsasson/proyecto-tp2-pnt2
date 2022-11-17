@@ -17,7 +17,7 @@ class UserService {
     login(username, password) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.usersDaoMongoDb.findByUsername(username, false);
-            if (user.Password === password) {
+            if (user.Password === password) { // user !== null &&
                 const token = jwt.sign({
                     name: user.Username,
                     id: user.Password
@@ -37,6 +37,7 @@ class UserService {
     }
     add(user) {
         return __awaiter(this, void 0, void 0, function* () {
+            return yield this.usersDaoMongoDb.add(user);
             const dbUser = yield this.usersDaoMongoDb.findByUsername(user.Username, false);
             if (dbUser == null) {
                 const created = yield this.usersDaoMongoDb.add(user);

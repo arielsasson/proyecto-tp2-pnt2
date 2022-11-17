@@ -8,6 +8,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import { storeToRefs } from "pinia"
 import { sessionStore } from './store/sessionStore.js'
 import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 
 </script>
 
@@ -15,6 +16,7 @@ import Navbar from './components/Navbar.vue'
 <!-- aca iria un navbar, botones con vue-if para registrarse logearse y deslogearse, hacer una nueva prediccion (GroupsView), ver predicciones mias y de otros, etc -->
     <Navbar />
     <RouterView />
+    <Footer />
 </template>
 
 <!-- <style scoped>

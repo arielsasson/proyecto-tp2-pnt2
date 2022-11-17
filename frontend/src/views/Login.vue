@@ -23,6 +23,7 @@ export default {
     },
     methods: {
         async loginButton() {
+            // userService
             await this.login(this.loginForm);
             if (!this.activeSession) {
                 this.errorMessage = "El usuario o la contraseña son incorrectos."

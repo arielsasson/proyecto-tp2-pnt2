@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios'
 import Group from '../components/Group.vue'
+import GroupService from '../services/GroupService.js'
 
 export default {
     name: "groups-view",
@@ -13,6 +14,7 @@ export default {
     },
 
     async mounted() {
+        // groupService
         const data = await axios.get('http://localhost:3000/api/groups')
         this.groups = data.data
     }

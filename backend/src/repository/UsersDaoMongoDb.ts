@@ -1,44 +1,51 @@
-import Dao from './Dao.js'
-import User from '../models/User.js';
-import { ConectarMongoDb } from './ConectarMongoDb.js';
+import Dao from "./Dao.js";
+import User from "../models/User.js";
+import { ConectarMongoDb } from "./ConectarMongoDb.js";
 
-class UsersDaoMongoDb{
+class UsersDaoMongoDb {
+    private conectarMongoDb: ConectarMongoDb = new ConectarMongoDb();
 
-    private conectarMongoDb : ConectarMongoDb = new ConectarMongoDb();
-
-    public async findByUsername (username : string, withPredictions: boolean) : Promise<User> {
+    public async findByUsername(
+        username: string,
+        withPredictions: boolean
+    ): Promise<User> {
         const db = await this.conectarMongoDb.conectar();
         let user = new User("", "", []);
-        if(db != undefined) {
-            const collection = db.collection('Users');    
-            if(withPredictions){
-                const findResult = await collection.findOne({Username:username})
-                if(findResult != null) {
-                    user = new User(findResult.Username, findResult.Password, findResult.Predictions)
+        if (db != undefined) {
+            const collection = db.collection("Users");
+            if (withPredictions) {
+                const findResult = await collection.findOne({ Username: username });
+                if (findResult != null) {
+                    user = new User(
+                        findResult.Username,
+                        findResult.Password,
+                        findResult.Predictions
+                    );
+                }
+            } else {
+                const findResult = await collection.findOne(
+                    { Username: username },
+                    { projection: { Predictions: 0 } }
+                );
+                if (findResult != null) {
+                    user = new User(findResult.Username, findResult.Password, []);
                 }
             }
-            else{
-                const findResult = await collection.findOne({Username:username}, {projection : {Predictions: 0}})
-                if(findResult != null) {
-                    user = new User(findResult.Username, findResult.Password, [])
-                }
-            }
-          
-            this.conectarMongoDb.desconectar();    
+            this.conectarMongoDb.desconectar();
         }
         return Promise.resolve(user);
     }
 
-    public async add (user : User) : Promise<Boolean> {
+    public async add(user: User): Promise<Boolean> {
         const db = await this.conectarMongoDb.conectar();
-        if(db != undefined) {
-            const collection = db.collection('Users');    
-            await collection.insertOne(user)
-            
-            this.conectarMongoDb.desconectar();    
+        if (db != undefined) {
+            const collection = db.collection("Users");
+            await collection.insertOne(user);
+
+            this.conectarMongoDb.desconectar();
         }
         return Promise.resolve(true);
     }
 }
 
-export {UsersDaoMongoDb} 
+export { UsersDaoMongoDb };

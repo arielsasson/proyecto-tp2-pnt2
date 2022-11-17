@@ -12,13 +12,13 @@ class ConectarMongoDb {
     constructor() {
         this.url = 'mongodb+srv://ProdeMundial:ProdeMundial@prodemundial.e2r0j4a.mongodb.net/test'; // archivo .env
         this.client = new MongoClient(this.url);
-        this.dbName = 'WolrdCupProde';
+        this.dbName = 'WorldCupProde';
     }
     conectar() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.client.connect();
-                console.log('conectado');
+                console.log('Conectado a base de datos.');
                 const db = this.client.db(this.dbName);
                 return db;
             }
@@ -30,7 +30,7 @@ class ConectarMongoDb {
     desconectar() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.client.close();
-            console.log('desconectado');
+            console.log('Desconectado de la base de datos.');
         });
     }
 }

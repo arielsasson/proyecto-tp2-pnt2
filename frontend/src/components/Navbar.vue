@@ -5,6 +5,11 @@ export default {
             showMenu: false,
         };
     },
+    methods: {
+        logout() {
+            console.log("DESLOGUEANDO!")
+        },
+    }
 };
 </script>
 
@@ -16,24 +21,21 @@ export default {
             px-6
             py-8
             mx-auto
-            md:flex md:justify-between md:items-center
-          ">
+            md:flex md:justify-between md:items-center">
                 <div class="flex items-center justify-between">
-                    <router-link to="/" class="
-                text-xl
-                font-bold
-                text-gray-800
-                md:text-2xl
-                hover:text-blue-400
-              ">Logo
-                    </router-link>
+                    <Router-link to="/" class="
+                    text-xl
+                    font-bold
+                    text-gray-800
+                    md:text-2xl
+                    hover:text-blue-400"> PRODE
+                    </Router-link>
                     <!-- Mobile menu button -->
                     <div @click="showMenu = !showMenu" class="flex md:hidden">
                         <button type="button" class="
-                  text-gray-800
-                  hover:text-gray-400
-                  focus:outline-none focus:text-gray-400
-                ">
+                        text-gray-800
+                        hover:text-gray-400
+                        focus:outline-none focus:text-gray-400">
                             <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
                                 <path fill-rule="evenodd"
                                     d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
@@ -46,27 +48,35 @@ export default {
 
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
                 <ul :class="showMenu ? 'flex' : 'hidden'" class="
-              flex-col
-              mt-8
-              space-y-4
-              md:flex
-              md:space-y-0
-              md:flex-row
-              md:items-center
-              md:space-x-10
-              md:mt-0
-            ">
+                flex-col
+                mt-8
+                space-y-4
+                md:flex
+                md:space-y-0
+                md:flex-row
+                md:items-center
+                md:space-x-10
+                md:mt-0">
                     <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-                        Home
+                        <Router-link to="/groups"> Nueva predicción </Router-link>
                     </li>
                     <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-                        About
+                        <Router-link to="predictions"> Mis predicciones </Router-link>
                     </li>
                     <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-                        Blogs
+                        <Router-link to="/login"> Iniciar sesión </Router-link>
                     </li>
                     <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
-                        Contact Us
+                        <Router-link to="register">
+                            
+                             Registrarse
+                        </Router-link>
+                    </li>
+                    <li class="text-sm font-bold text-gray-800 hover:text-blue-400">
+                        <button :on-click="logout"
+                            class="py-1.5 px-4 transition-colors bg-gray-50 border active:bg-red-800 font-medium border-gray-200 hover:text-white text-red-600 hover:border-red-700 rounded-lg hover:bg-red-600 disabled:opacity-50">
+                            Salir
+                        </button>
                     </li>
                 </ul>
             </nav>
