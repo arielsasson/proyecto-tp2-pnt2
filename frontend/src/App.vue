@@ -7,13 +7,11 @@
 import { RouterLink, RouterView } from 'vue-router'
 import {storeToRefs} from "pinia"
 import {loginStore} from './store/loginStore.js'
-import Group from './components/Group.vue'
 
 </script>
 
 <template>
   <RouterView />
-  <Group> </Group>
 </template>
 
 <!-- <style scoped>
