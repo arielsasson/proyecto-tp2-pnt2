@@ -7,12 +7,14 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { storeToRefs } from "pinia"
 import { sessionStore } from './store/sessionStore.js'
+import Navbar from './components/Navbar.vue'
 
 </script>
 
 <template>
-   <!-- aca iria un navbar, botones con vue-if para registrarse logearse y deslogearse, hacer una nueva prediccion (GroupsView), ver predicciones mias y de otros, etc -->
-  <RouterView />
+<!-- aca iria un navbar, botones con vue-if para registrarse logearse y deslogearse, hacer una nueva prediccion (GroupsView), ver predicciones mias y de otros, etc -->
+    <Navbar />
+    <RouterView />
 </template>
 
 <!-- <style scoped>
