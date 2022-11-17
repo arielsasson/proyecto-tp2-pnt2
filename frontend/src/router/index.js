@@ -23,6 +23,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/groups',
+      name: 'groups',
+      component: GroupsView
     }
     // {
     //   path: '/about',
