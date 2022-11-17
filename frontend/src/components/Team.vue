@@ -3,7 +3,6 @@
 export default {
     name: "team",
     props: ['team'],
-    inject: ["eventHub"],
     data() {
         return {
             hover: false,

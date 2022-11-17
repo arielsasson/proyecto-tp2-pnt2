@@ -5,7 +5,6 @@ export default {
     name: "group",
     components: { Team },
     props: ['group'],
-    inject: ["eventHub"],
     data() {
         return {
             selected: {

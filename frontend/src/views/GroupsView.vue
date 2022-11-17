@@ -6,7 +6,6 @@ import GroupService from '../services/GroupService.js'
 export default {
     name: "groups-view",
     components: { Group },
-    inject: ["eventHub"], // con esto evito pasar desde nieto a abuelo con un pasamanos engorroso!
     data() {
         return {
             groups: []
