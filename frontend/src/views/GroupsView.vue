@@ -4,7 +4,7 @@ import Group from '../components/Group.vue'
 
   export default {
     name: "TeamGroups",
-    // components: { Groups },
+    components: { Group },
     
     data() {
       return {
@@ -21,8 +21,10 @@ import Group from '../components/Group.vue'
   </script>
 
 <template>
-    <div>
-      <Group :data='groups[0]'> </Group>
+  <div class="grid grid-cols-4 grid-row-2 place-items-center"> 
+    <div v-for="group in groups" class="w-60 h-60 bg-white shadow rounded border border-transparent hover:border-blue-500 cursor-pointer">
+      <Group :data='group' > </Group>
+     
       <!-- <h1>Todos los Grupos</h1>
       <div class="">
         <div v-for="group in groups" v-bind:key="group">
@@ -33,6 +35,14 @@ import Group from '../components/Group.vue'
           <div v-for="team in group" v-bind:key="team.name">
         </div> -->
     </div>
+
+
+<div class="fixed bottom-96">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 rounded align-bottom">
+  Confirmar selección
+</button>
+</div>
+  </div>
       
    
   </template>
