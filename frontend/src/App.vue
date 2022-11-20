@@ -9,27 +9,38 @@ import { storeToRefs } from "pinia"
 import { sessionStore } from './store/sessionStore.js'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
+import { ref, onErrorCaptured } from 'vue'
 
+// const error = ref(null);
+// onErrorCaptured((e) => {
+//     error.value = e;
+//     return false;
+// })
 
 </script>
 
 <template>
-<!-- aca iria un navbar, botones con vue-if para registrarse logearse y deslogearse, hacer una nueva prediccion (GroupsView), ver predicciones mias y de otros, etc -->
     <Navbar />
-    <RouterView />
+    <!-- <div class="flex items-center justify-center h-100" v-if="error">
+        <div class="f2 montserrat gray mr2">!</div>
+        <div class="f6 gray">{{ error }}</div>
+    </div> -->
+    <Suspense>
+        <RouterView />
+    </Suspense>
     <Footer />
 </template>
 
 <!-- <style scoped>
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+    filter: drop-shadow(0 0 2em #42b883aa);
 }
 </style> -->

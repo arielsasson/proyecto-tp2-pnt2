@@ -1,14 +1,31 @@
 <script>
-// https://dev.to/vcpablo/vuejs-recursive-components-2549
+// https://dev.to/vcpablo/vuejs-recursive-components-2549 Revisar el tema de los :node para evitar el bucle infinito
+
+
 import Team from '../components/Team.vue'
 
 export default {
     name: 'playoff',
     components: { Team },
     setup() {
+        
+    },
+    props: ['playoffs', 'order', 'prediction'],
+    data() {
+        return {
+            children: {},
+            thisPlayoff: {},
+            teams: {
+                first: {},
+                second: {}
+            },
+            selected: ""
+        }
+    },
+    mounted() {
         this.thisPlayoff = this.playoffs.find((p) => {
-                p.order === this.order
-            })
+            p.order === this.order
+        })
         if (this.order >= 9 && this.order <= 15) {
             this.children.first = thisPlayoff.teams[0].order
             this.children.second = thisPlayoff.teams[1].order
@@ -28,18 +45,6 @@ export default {
             this.teams.second.Name = teamName2
         }
     },
-    props: ['playoffs', 'order', 'prediction'],
-    data() {
-        return {
-            children: {},
-            thisPlayoff: {},
-            teams: {
-                first: {},
-                second: {}
-            },
-            selected: ""
-        }
-    },
     methods: {
         eraseSelections() {
             const [team1] = this.$refs[`${this.order}-1`]
@@ -48,9 +53,9 @@ export default {
             team2.erase()
             if (this.children) {
                 const [playoff1] = this.$refs[this.children.first]
-                playoff1.erase()
+                playoff1.eraseSelections()
                 const [playoff2] = this.$refs[this.children.second]
-                playoff2.erase()
+                playoff2.eraseSelections()
             }
         },
         assignTeam(order, name) {
@@ -95,29 +100,25 @@ export default {
 </script>
 
 <template>
-    <p>
-        {{ this.thisPlayoff.Date }}
-    </p>
-    <div v-if="this.teams.first.Name && this.teams.second.Name">
-        <Team
-        :team="this.teams.first"
-        :ref="`${this.order}-1`" />
-        <Team
-        :team="this.teams.second"
-        :ref="`${this.order}-2`" />
-    </div>
-    
-    <div v-if="this.children"
-    class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
-        <Playoff
-        :playoffs="this.playoffs"
-        :order="this.children.first"
-        :prediction="this.prediction"
-        :ref="`${this.children.first}`"/>
-        <Playoff
-        :playoffs="this.playoffs"
-        :order="this.children.second"
-        :prediction="this.prediction"
-        :ref="`${this.children.second}`"/>
-    </div>
+    <!-- <Suspense> -->
+        <p>
+            {{ this.thisPlayoff.Date }}
+        </p>
+        <div v-if="this.teams.first.Name && this.teams.second.Name">
+            <Team :team="this.teams.first" :ref="`${this.order}-1`" />
+            <Team :team="this.teams.second" :ref="`${this.order}-2`" />
+        </div>
+
+        <div
+            class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
+            <Playoff :playoffs="this.playoffs" :order="this.children.first" :prediction="this.prediction"
+                :ref="`${this.children.first}`"
+                :node="this.children.first"
+                v-if="this.children" />
+            <Playoff :playoffs="this.playoffs" :order="this.children.second" :prediction="this.prediction"
+                :ref="`${this.children.second}`"
+                :node="this.children.second"
+                v-if="this.children" />
+        </div>
+    <!-- </Suspense> -->
 </template>

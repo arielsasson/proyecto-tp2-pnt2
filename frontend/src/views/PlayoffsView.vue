@@ -2,30 +2,34 @@
 import Playoff from '../components/Playoff.vue'
 import { predictionStore } from "../store/predictionStore.js"
 import { storeToRefs } from "pinia"
+import axios from 'axios'
 
 export default {
     name: 'playoffs-view',
     components: { Playoff },
-    setup() {
+    async setup() {
         const store = predictionStore();
         const { prediction } = storeToRefs(store);
         const { updatePlayoffs } = store;
-        
+        const res = await axios.get('http://localhost:3000/api/playoffs/defaults')
+        let playoffs = res.data
+        console.log(playoffs)
         return {
             store,
             updatePlayoffs,
-            prediction
+            prediction,
+            playoffs
         }
     },
     data() {
         return {
-            playoffs: []
+            // playoffs: []
         }
     },
     async mounted() {
         // usar el playoffService para las llamadas al backend
-        const res = await axios.get('http://localhost:3000/api/playoffs/defaults')
-        this.playoffs = res.data
+        // const res = await axios.get('http://localhost:3000/api/playoffs/defaults')
+        // this.playoffs = res.data
     },
     methods: {
         save() {
@@ -77,22 +81,17 @@ export default {
 }
 </script>
 
-<!-- <template v-if="this.playoffs"> -->
 <template>
-    <!-- <div v-if="this.playoffs" -->
-    <div
-    class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
-        <Playoff :playoffs="playoffs" :order="15" :prediction="this.prediction" />
+    <div class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
+        <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" />
     </div>
-    
-    <button
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
-    v-on:click="save">
+
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
+        v-on:click="save">
         Guardar predicción
     </button>
-    <button
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
-    v-on:click="eraseSelections">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
+        v-on:click="eraseSelections">
         Borrar selecciones
     </button>
 </template>
