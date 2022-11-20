@@ -60,6 +60,8 @@ export default {
 
 <template>
     <div class="grid grid-cols-4 grid-row-2 place-items-center">
+        <!-- <Group :group="this.groups[0]"
+        :ref="`${this.groups[0].Letter}`" /> -->
         <div v-for="group in groups"
             :key="group.Name"
             class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">

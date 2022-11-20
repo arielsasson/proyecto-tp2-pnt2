@@ -95,6 +95,9 @@ export default {
 </script>
 
 <template>
+    <p>
+        {{ this.thisPlayoff.Date }}
+    </p>
     <div v-if="this.teams.first.Name && this.teams.second.Name">
         <Team
         :team="this.teams.first"
