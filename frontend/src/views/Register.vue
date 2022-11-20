@@ -42,7 +42,9 @@ export default {
                 const res = await UserService.register(this.registerForm)
                 this.disabled = true
                 if (res.status == 200) {
-                    this.$refs.modal.openModal(true)
+                    console.log(this.$refs)
+                    console.log(this.$refs.modal)
+                    await this.$refs.modal.openModal(true)
                 } else {
                     this.mensajeError = "Registro rechazado."
                     await this.$refs.modal.openModal(false)

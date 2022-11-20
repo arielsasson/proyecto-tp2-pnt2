@@ -7,24 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Group from '../models/Group.js';
-import { ConectarMongoDb } from './ConectarMongoDb.js';
-class GroupDaoMongoDb {
-    constructor() {
-        this.conectarMongoDb = new ConectarMongoDb();
-    }
-    findAll() {
+import PlayoffService from '../services/PlayoffService.js';
+class PlayoffController {
+    static findAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const db = yield this.conectarMongoDb.conectar();
-            const groups = new Array;
-            if (db != undefined) {
-                const collection = db.collection('Groups');
-                const findResult = (yield collection.find().toArray());
-                findResult.forEach(e => groups.push(new Group(e.Group.Letter, e.Group.Teams)));
-                this.conectarMongoDb.desconectar();
-            }
-            return Promise.resolve(groups);
+            debugger;
+            const playoffService = new PlayoffService();
+            res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
+            res.send(yield playoffService.findAll());
         });
     }
 }
-export { GroupDaoMongoDb };
+export { PlayoffController };

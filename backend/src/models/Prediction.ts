@@ -1,12 +1,16 @@
 import Group from "./Group.js"
-import User from "./User.js"
+import Playoff from "./Playoff.js"
 
 class Prediction {
 
     Groups: Group[]
+    Playoffs: Playoff[]
     
-    constructor(groups: Group[]){
-        this.Groups = groups; 
+    constructor(
+        groups: Group[],
+        playoffs: Playoff[]){
+        this.Groups = groups;
+        this.Playoffs = playoffs;
     }
 }
 

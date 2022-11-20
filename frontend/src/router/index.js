@@ -7,6 +7,7 @@ const Home = () => import('../views/Home.vue')
 const Login = () => import('../views/Login.vue')
 const Register = () => import('../views/Register.vue')
 const GroupsView = () => import('../views/GroupsView.vue')
+const PlayoffsView = () => import('../views/PlayoffsView.vue')
 const Predictions = () => import('../views/Predictions.vue')
 const About = () => import('../views/About.vue')
 
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: About
+    },
+    {
+      path: '/playoffs',
+      name: 'playoffs',
+      component: PlayoffsView
     }
   ]
 })
