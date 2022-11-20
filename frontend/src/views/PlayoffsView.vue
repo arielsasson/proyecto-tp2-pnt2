@@ -13,7 +13,6 @@ export default {
         const { updatePlayoffs } = store;
         const res = await axios.get('http://localhost:3000/api/playoffs/defaults')
         let playoffs = res.data
-        console.log(playoffs)
         return {
             store,
             updatePlayoffs,
@@ -83,7 +82,11 @@ export default {
 
 <template>
     <div class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
-        <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" />
+        <Playoff
+        :playoffs="this.playoffs"
+        :order="15"
+        :prediction="this.prediction"
+        :spacing="-10" />
     </div>
 
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"

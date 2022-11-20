@@ -10,7 +10,7 @@ export default {
     setup() {
         
     },
-    props: ['playoffs', 'order', 'prediction'],
+    props: ['playoffs', 'order', 'prediction', 'spacing'],
     data() {
         return {
             children: {},
@@ -44,6 +44,7 @@ export default {
             this.teams.first.Name = teamName1
             this.teams.second.Name = teamName2
         }
+        console.log(Boolean(this.children))
     },
     methods: {
         eraseSelections() {
@@ -109,16 +110,14 @@ export default {
             <Team :team="this.teams.second" :ref="`${this.order}-2`" />
         </div>
 
-        <div
+        <div v-if="this.children"
             class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
             <Playoff :playoffs="this.playoffs" :order="this.children.first" :prediction="this.prediction"
                 :ref="`${this.children.first}`"
-                :node="this.children.first"
-                v-if="this.children" />
+                :spacing="spacing + 10"/>
             <Playoff :playoffs="this.playoffs" :order="this.children.second" :prediction="this.prediction"
                 :ref="`${this.children.second}`"
-                :node="this.children.second"
-                v-if="this.children" />
+                :spacing="spacing + 10" />
         </div>
     <!-- </Suspense> -->
 </template>
