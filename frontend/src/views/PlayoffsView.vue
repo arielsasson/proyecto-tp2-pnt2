@@ -20,7 +20,7 @@ export default {
     data() {
         return {
             playoffs: []
-        }        
+        }
     },
     async mounted() {
         // usar el playoffService para las llamadas al backend
@@ -33,10 +33,8 @@ export default {
             // this.updatePlayoffs()
         },
         eraseSelections() {
-            this.playoffs.forEach((p) => {
-                const [child] = this.$refs[p.order]
-                child.erase()
-            })
+            const [child] = this.$refs[15]
+            child.eraseSelections()
         },
         // metodo para renderizar lineas?
         drawLines() {

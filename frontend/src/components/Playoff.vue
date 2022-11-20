@@ -24,8 +24,8 @@ export default {
             }).Teams.find((t) => {
                 t.Position === "second"
             }).Name
-            this.thisPlayoff.teams[0].Name = teamName1
-            this.thisPlayoff.teams[1].Name = teamName2
+            this.teams.first.Name = teamName1
+            this.teams.second.Name = teamName2
         }
     },
     props: ['playoffs', 'order', 'prediction'],
@@ -33,6 +33,10 @@ export default {
         return {
             children: {},
             thisPlayoff: {},
+            teams: {
+                first: {},
+                second: {}
+            },
             selected: ""
         }
     },
@@ -49,11 +53,36 @@ export default {
                 playoff2.erase()
             }
         },
+        assignTeam(order, name) {
+            if (this.children) {
+                // asignar equipos para que puedan renderizarse
+                // recibo de mis hijos los equipos seleccionados
+                // si no tengo hijos ignoro
+                if (order === this.children.first) {
+                    this.teams.first.Name = name
+                } else if (order === this.children.second) {
+                    this.teams.second.Name = name
+                }
+            }
+        },
+        eraseTeam(name) {
+            if (this.children) {
+                if (this.teams.first.Name === name) {
+                    this.teams.first = {}
+                } else if (this.teams.second.Name === name) {
+                    this.teams.second = {}
+                }
+                this.$parent.eraseTeam(name)
+            }
+        },
         teamSelected(name) {
             if (this.checkEmpty(this.selected)) {
                 this.selected = name
+                this.$parent.assignTeam(this.order, name) // si order es 15 va a llamar a PlayoffsView, hay que definirlo (campeon mundial)
                 return "X"
             } else if (this.selected === name) {
+                this.selected = ""
+                this.$parent.eraseTeam(name)
                 return null
             }
             return null // redundante?
@@ -66,12 +95,15 @@ export default {
 </script>
 
 <template>
-    <Team
-    :team="this.thisPlayoff.teams[0]"
-    :ref="`${this.order}-1`" />
-    <Team 
-    :team="this.thisPlayoff.teams[1]"
-    :ref="`${this.order}-2`" />
+    <div v-if="this.teams.first.Name && this.teams.second.Name">
+        <Team
+        :team="this.teams.first"
+        :ref="`${this.order}-1`" />
+        <Team
+        :team="this.teams.second"
+        :ref="`${this.order}-2`" />
+    </div>
+    
     <div v-if="this.children"
     class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
         <Playoff
