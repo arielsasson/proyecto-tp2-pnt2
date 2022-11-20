@@ -1,5 +1,6 @@
 class Playoff {
     Order: Number;
+    Date: string;
     Teams: Array<Object>;
     
 
@@ -9,6 +10,7 @@ class Playoff {
         Teams: Array<Object>) 
         {
         this.Order = Order;
+        this.Date = Date;
         this.Teams = Teams;
     }
 }

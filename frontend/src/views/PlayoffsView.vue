@@ -10,6 +10,7 @@ export default {
         const store = predictionStore();
         const { prediction } = storeToRefs(store);
         const { updatePlayoffs } = store;
+        
         return {
             store,
             updatePlayoffs,
@@ -23,14 +24,13 @@ export default {
     },
     async mounted() {
         // usar el playoffService para las llamadas al backend
-        const data = await axios.get('http://localhost:3000/api/playoffs/defaults')
-        this.playoffs = data.data
-        console.log(this.playoffs)
+        const res = await axios.get('http://localhost:3000/api/playoffs/defaults')
+        this.playoffs = res.data
     },
     methods: {
         confirm() {
             // post a la base de datos, con playoffservice
-            // se podria guardar en el store para que no se pierdan los datos seleccionados al moverse por la aplicacion
+            // this.updatePlayoffs()
         },
         eraseSelections() {
             this.playoffs.forEach((p) => {
@@ -76,12 +76,10 @@ export default {
 </script>
 
 <template>
-    <!-- <div v-for="playoff in this.playoffs" 
-        :key="playoff.order"
-        class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">>
-        <Playoff :data="playoff" :ref="`${playoff.order}`"/>
-    </div> -->
-    <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" />
+    <div class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
+        <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" />
+    </div>
+    
     <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
                 v-on:click="confirm">

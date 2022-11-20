@@ -58,14 +58,8 @@ export default {
         </div>
         <div v-for="team in group.Teams" :key="team.Name"
             class="text-center p-1 text-gray-500 bg-white shadow-xl border border-gray-100 rounded-2xl font-medium ">
-            <!-- <p @mouseenter="arriba = true" @mouseleave="arriba = false" class="div" :class="{'div-hover': arriba}"> {{team.Name}}</p> -->
             <Team :team="team" :ref="`${team.Name}`" />
         </div>
-        <!-- <div v-for="team in data.Teams" :key="team"
-        class="p-3 text-gray-500 bg-white shadow-xl border border-gray-100  rounded-2xl font-medium w-72"> -->
-
-        <!-- <p>{{ team.Name }}</p> -->
-        <!-- </div> -->
     </div>
 </template>
 

@@ -8,7 +8,7 @@ class Playoff {
     constructor(
         Order: Number,
         Winner: Team,
-        Loser: Team) 
+        Loser: Team)
         {
         this.Order = Order;
         this.Winner = Winner;

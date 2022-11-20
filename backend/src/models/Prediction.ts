@@ -8,7 +8,8 @@ class Prediction {
     
     constructor(
         groups: Group[],
-        playoffs: Playoff[]){
+        playoffs: Playoff[])
+        {
         this.Groups = groups;
         this.Playoffs = playoffs;
     }

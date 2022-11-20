@@ -6,17 +6,6 @@ export default {
     name: 'playoff',
     components: { Team },
     setup() {
-
-    },
-    props: ['playoffs', 'order', 'prediction'],
-    data() {
-        return {
-            children: {},
-            thisPlayoff: {},
-            selected: ""
-        }
-    },
-    async mounted() {
         this.thisPlayoff = this.playoffs.find((p) => {
                 p.order === this.order
             })
@@ -37,6 +26,14 @@ export default {
             }).Name
             this.thisPlayoff.teams[0].Name = teamName1
             this.thisPlayoff.teams[1].Name = teamName2
+        }
+    },
+    props: ['playoffs', 'order', 'prediction'],
+    data() {
+        return {
+            children: {},
+            thisPlayoff: {},
+            selected: ""
         }
     },
     methods: {
@@ -75,7 +72,8 @@ export default {
     <Team 
     :team="this.thisPlayoff.teams[1]"
     :ref="`${this.order}-2`" />
-    <div v-if="this.children">
+    <div v-if="this.children"
+    class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
         <Playoff
         :playoffs="this.playoffs"
         :order="this.children.first"

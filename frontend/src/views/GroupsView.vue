@@ -25,8 +25,8 @@ export default {
     },
     async mounted() {
         // usar el groupService para las llamadas al backend
-        const data = await axios.get('http://localhost:3000/api/groups')
-        this.groups = data.data
+        const res = await axios.get('http://localhost:3000/api/groups')
+        this.groups = res.data
     },
     methods: {
         async confirm() {
