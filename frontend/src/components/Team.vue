@@ -61,10 +61,10 @@ export default {
 
 }
 
-p:hover {
+/* p:hover {
     font-size: 115%;
     text-align: center;
     font-weight: 900;
     color: black;
-}
+} */
 </style>

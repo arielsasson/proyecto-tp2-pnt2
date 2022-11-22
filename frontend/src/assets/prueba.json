@@ -1,0 +1,156 @@
+[
+	{
+		"order": 15,
+		"date": "18-12-2022 12:00 HS",
+		"teams": [
+			{
+                "order": 13,
+                "date": "13-12-2022 16:00 HS",
+                "teams": [
+                    {
+                        "order": 9,
+                        "date": "09-12-2022 16:00 HS",
+                        "teams": [
+                            {
+                                "order": 1,
+                                "date": "03-12-2022 12:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "A",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "B",
+                                        "position": "second"
+                                    }
+                                ]
+                            },
+                            {
+                                "order": 2,
+                                "date": "03-12-2022 16:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "C",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "D",
+                                        "position": "second"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "order": 10,
+                        "date": "09-12-2022 12:00 HS",
+                        "teams": [
+                            {
+                                "order": 3,
+                                "date": "05-12-2022 12:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "E",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "F",
+                                        "position": "second"
+                                    }
+                                ]
+                            },
+                            {
+                                "order": 4,
+                                "date": "05-12-2022 16:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "G",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "H",
+                                        "position": "second"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+			},
+			{
+                "order": 14,
+                "date": "14-12-2022 16:00 HS",
+                "teams": [
+                    {
+                        "order": 11,
+                        "date": "10-12-2022 16:00 HS",
+                        "teams": [
+                            {
+                                "order": 5,
+                                "date": "04-12-2022 16:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "B",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "A",
+                                        "position": "second"
+                                    }
+                                ]
+                            },
+                            {
+                                "order": 6,
+                                "date": "04-12-2022 12:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "D",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "C",
+                                        "position": "second"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "order": 12,
+                        "date": "10-12-2022 12:00 HS",
+                        "teams": [
+                            {
+                                "order": 7,
+                                "date": "06-12-2022 12:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "F",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "E",
+                                        "position": "second"
+                                    }
+                                ]
+                            },
+                            {
+                                "order": 8,
+                                "date": "06-12-2022 16:00 HS",
+                                "teams": [
+                                    {
+                                        "group": "H",
+                                        "position": "first" 
+                                    },
+                                    {
+                                        "group": "G",
+                                        "position": "second"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+		]
+	}	
+]

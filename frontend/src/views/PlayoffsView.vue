@@ -37,7 +37,8 @@ export default {
             // this.updatePlayoffs() para guardarlo en el store, OPCIONAL
         },
         eraseSelections() {
-            const [child] = this.$refs[15]
+            console.log(this.$refs[15])
+            const child = this.$refs[15]
             child.eraseSelections()
         },
         assignTeam(order, name) {
@@ -81,12 +82,13 @@ export default {
 </script>
 
 <template>
-    <div class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
+    <div class="flex justify-end  bg-white shadow rounded border border-transparent hover:border-blue-500">
         <Playoff
         :playoffs="this.playoffs"
         :order="15"
         :prediction="this.prediction"
-        :spacing="-10" />
+        :spacing="-10" 
+        ref="15"/>
     </div>
 
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"

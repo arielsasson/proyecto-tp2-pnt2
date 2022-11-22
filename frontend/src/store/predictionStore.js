@@ -58,7 +58,7 @@ export const predictionStore = defineStore('prediction', {
             this.prediction.groups = groups
         },
         async updatePlayoffs(playoffsInfo) {
-
+            // hace falta?
         }
 
     }
