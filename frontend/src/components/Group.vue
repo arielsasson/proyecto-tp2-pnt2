@@ -52,9 +52,9 @@ export default {
 </script>
 
 <template>
-    <div class="grid text-center  place-self-center gap-3">
+    <div class="grid text-center  place-self-center gap-3 m-3">
         <div class="mb-1.5">
-            {{ group.Letter }}
+            Grupo {{ group.Letter }}
         </div>
         <div v-for="team in group.Teams" :key="team.Name"
             class="text-center p-1 text-gray-500 bg-white shadow-xl border border-gray-100 rounded-2xl font-medium ">

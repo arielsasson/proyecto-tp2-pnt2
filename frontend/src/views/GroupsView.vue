@@ -63,8 +63,8 @@ export default {
         <!-- <Group :group="this.groups[0]"
         :ref="`${this.groups[0].Letter}`" /> -->
         <div v-for="group in groups" :key="group.Name"
-            class="w-72 h-100 bg-white shadow rounded border border-transparent hover:border-blue-500">
-            <div class="gap-3">
+            class="w-60 h-120 bg-white shadow rounded border border-transparent hover:border-blue-500 m-5">
+            <div class="gap-3 ">
                 <Group :group='group' :ref="`${group.Letter}`" />
             </div>
         </div>

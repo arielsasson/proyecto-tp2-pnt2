@@ -5,7 +5,6 @@ export default {
     props: ['team'],
     data() {
         return {
-            hover: false,
             position: null,
         };
     },
@@ -26,22 +25,25 @@ export default {
 </script>
 
 <template>
-    <div class="">
-            <img 
-                class=" rounded-md ml-3 h-8 md:h-25 md:w-25 bg-white"
-                :src="getImgUrl(team.Name)"/>
-                <p
-                @mouseenter="hover = true"
-                @mouseleave="hover = false"
-                class="div  cursor-pointer"
-                :class="{'div-hover': hover}" 
-                v-on:click="select"
-                v-if="team.Name">
+    <div class="hover:bg-sky-300 hover:bg-clip-border rounded-xl cursor-pointer grid grid-cols-5 text-center  hover:text-black" v-on:click="select">
+        <div class="col-start-1 col-end-1">
+            <img class=" rounded-md ml-3 h-8 md:h-25 md:w-25 hover:bg-sky-300" :src="getImgUrl(team.Name)" />
+        </div>
+        <div class="col-start-2 col-end-5">
+            <div>
+                <div v-if="team.Name">
                 {{ team.Name }}
-                </p>
-                <p v-if="position"> 
-                    <span class="bg-green-500 rounded-full text-white px-3 py-1 text-xs uppercase font-medium"> {{ position }} </span>
-                </p>
+            </div>
+            </div>
+
+        </div>
+        <div class="col-start-5 col-end-5   ">
+            <p v-if="position">
+                <span class="bg-green-500 rounded-full text-white px-3 py-1 text-xs uppercase font-medium "> {{ position
+                }}
+                </span>
+            </p>
+        </div>
     </div>
 </template>
 
@@ -54,12 +56,13 @@ export default {
 
 }
 
+/* 
 .div-hover {
     background-color: lightskyblue;
     opacity: 1;
 
 
-}
+} */
 
 /* p:hover {
     font-size: 115%;

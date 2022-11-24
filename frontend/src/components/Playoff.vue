@@ -19,10 +19,12 @@ export default {
                 first: {},
                 second: {}
             },
-            selected: ""
+            selected: "",
+            gridPosition: {}
         }
     },
     mounted() {
+
         this.thisPlayoff = this.playoffs.find(p => {
             return p.Order == this.order
         })
@@ -43,7 +45,13 @@ export default {
             }).Name
             this.teams.first.Name = teamName1
             this.teams.second.Name = teamName2
+
         }
+
+        if (this.order) {
+
+        }
+
     },
     methods: {
         eraseSelections() {
@@ -107,25 +115,34 @@ export default {
 }
 </script>
 
-<template>
-    <!-- <Suspense> -->
-    <div class="bg-stone-400 shadow rounded border hover:border-blue-500">
-        <p>
-            {{ this.thisPlayoff.Date }}
-        </p>
-        <div v-if="this.teams.first.Name && this.teams.second.Name">
-            <Team :team="this.teams.first" :ref="`${this.order}-1`" />
-            <Team :team="this.teams.second" :ref="`${this.order}-2`" />
+<template >
+    <div >
+        <div>
+            <p>
+                {{ this.thisPlayoff.Date }}
+            </p>
+            <div v-if="this.teams.first.Name && this.teams.second.Name">
+                <Team :team="this.teams.first" :ref="`${this.order}-1`" />
+                <Team :team="this.teams.second" :ref="`${this.order}-2`" />
+            </div>
+        </div>
+
+        <!-- class="flex justify-end  bg-white shadow rounded border hover:border-blue-500" -->
+        <div v-if="Object.keys(this.children).length !== 0">
+            <div class="col-start-3 col-end-3 row-start-1 row-end-1">
+                <Playoff :playoffs="this.playoffs" :order="this.children.first" :prediction="this.prediction"
+                    :ref="`${this.children.first}`" :spacing="spacing + 10" />
+            </div>
+
+            <div class="col-start-5 col-end-5 row-start-3 row-end-3">
+                <Playoff :playoffs="this.playoffs" :order="this.children.second" :prediction="this.prediction"
+                    :ref="`${this.children.second}`" :spacing="spacing + 10" />
+            </div>
+
         </div>
     </div>
+    <!-- <Suspense> -->
+    <!-- class="bg-stone-400 shadow rounded border hover:border-blue-500" -->
 
-
-    <div v-if="Object.keys(this.children).length !== 0"
-        class="flex justify-end  bg-white shadow rounded border hover:border-blue-500">
-        <Playoff :playoffs="this.playoffs" :order="this.children.first" :prediction="this.prediction"
-            :ref="`${this.children.first}`" :spacing="spacing + 10" />
-        <Playoff :playoffs="this.playoffs" :order="this.children.second" :prediction="this.prediction"
-            :ref="`${this.children.second}`" :spacing="spacing + 10" />
-    </div>
     <!-- </Suspense> -->
 </template>

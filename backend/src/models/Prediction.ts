@@ -5,13 +5,16 @@ class Prediction {
 
     Groups: Group[]
     Playoffs: PlayoffResult[]
+    Date: Number
     
     constructor(
         groups: Group[],
-        playoffs: PlayoffResult[])
+        playoffs: PlayoffResult[],
+        date: Number)
         {
         this.Groups = groups;
         this.Playoffs = playoffs;
+        this.Date = date;
     }
 }
 
