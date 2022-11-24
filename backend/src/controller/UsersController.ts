@@ -9,6 +9,7 @@ class UsersController {
             req.body.Username,
             req.body.Password
         );
+        console.log(loginResult)
         if (loginResult.Error === "") {
             const token = loginResult.DataToken;
             res.setHeader("auth-token", token).json({

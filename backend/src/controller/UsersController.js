@@ -14,6 +14,7 @@ class UsersController {
             const userService = new UserService();
             res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
             const loginResult = yield userService.login(req.body.Username, req.body.Password);
+            console.log(loginResult);
             if (loginResult.Error === "") {
                 const token = loginResult.DataToken;
                 res.setHeader("auth-token", token).json({
