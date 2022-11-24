@@ -64,13 +64,12 @@ export default {
                 Loser: { Name: this.teams.first.Name === this.selected ? this.teams.second.Name : this.teams.first.Name }
             })
         },
-        eraseSelections() {
-
+        eraseSelected() {
+            this.selected = ""
             const team1 = this.$refs[`${this.order}-1`]
             team1.erase()
             const team2 = this.$refs[`${this.order}-2`]
             team2.erase()
-
             // if (Object.keys(this.$refs).includes(`${this.order}-1`)) {
             //     const team1 = this.$refs[`${this.order}-1`]
             //     team1.erase()
@@ -79,6 +78,9 @@ export default {
             //     const team2 = this.$refs[`${this.order}-2`]
             //     team2.erase()
             // }
+        },
+        eraseSelections() {
+            this.eraseSelected()
             if (this.isParent) {
                 const playoff1 = this.$refs[this.children.first]
                 playoff1.eraseSelections()
@@ -87,7 +89,6 @@ export default {
                 this.teams.first = {}
                 this.teams.second = {}
             }
-            this.selected = ""
         },
         assignTeam(order, name) {
             if (this.isParent) {
@@ -108,15 +109,18 @@ export default {
                 } else if (this.teams.second.Name === name) {
                     this.teams.second = {}
                 }
+                if (this.$parent.selected === name) {
+                    this.$parent.eraseSelected()
+                }
                 if (this.order < 15) {
                     this.$parent.eraseTeam(name)
                 }
-            }
+            } // aca falta
         },
         teamSelected(name) {
             if (this.checkEmpty(this.selected)) {
                 this.selected = name
-                this.$parent.assignTeam(this.order, name) // si order es 15 va a llamar a PlayoffsView, hay que definirlo (campeon mundial)
+                this.$parent.assignTeam(this.order, name)
                 return "🗸"
             } else if (this.selected === name) {
                 this.selected = ""
@@ -139,12 +143,12 @@ export default {
                 <p class="font-black tracking-wide underline decoration-2 decoration-cyan-700 underline-offset-4 ">
                     {{ this.thisPlayoff.Date }}
                 </p>
-                <div v-show="this.teams.first.Name && this.teams.second.Name">
-                    <div
+                <div >
+                    <div v-show="this.teams.first.Name"
                         class="text-center text-gray-800 bg-slate-200 shadow-xl border border-slate-500 rounded-2xl m-2 ">
                         <Team :team="this.teams.first" :ref="`${this.order}-1`" />
                     </div>
-                    <div
+                    <div v-show="this.teams.second.Name"
                         class="text-center text-gray-800 bg-slate-200 shadow-xl border border-slate-500 rounded-2xl m-2 ">
                         <Team :team="this.teams.second" :ref="`${this.order}-2`" />
                     </div>

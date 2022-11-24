@@ -25,9 +25,9 @@ export default {
     <div class="hover:bg-emerald-500 hover:bg-clip-border rounded-3xl cursor-pointer grid grid-cols-5 text-xl hover:text-black m-2"
         v-on:click="select">
         <div class="col-start-1 col-end-1">
-            <img class=" rounded-md ml-3 h-9 md:h-25 md:w-25 " :src="getImgUrl(team.Name)" />
+            <img v-if="team.Name" class=" rounded-md ml-3 h-9 md:h-25 md:w-25 " :src="getImgUrl(team.Name)" />
         </div>
-        <div class="col-start-2 col-end-5 font-bold align-middle" v-if="team.Name">
+        <div v-if="team.Name" class="col-start-2 col-end-5 font-bold align-middle">
             {{ team.Name }}
         </div>
         <div class="col-start-5 col-end-5">
