@@ -84,8 +84,8 @@ export default {
 <template>
     <!-- class="flex justify-end bg-white shadow rounded border border-transparent hover:border-blue-500" -->
     <div >
-        <div class="grid grid-cols-7 grid-rows-5"  >
-            <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" :spacing="-10" ref="15" />
+        <div class="playoffs-content">
+            <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" ref="15" />
         </div>
     </div>
 

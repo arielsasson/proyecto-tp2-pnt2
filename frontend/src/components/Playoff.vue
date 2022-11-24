@@ -10,7 +10,7 @@ export default {
     setup() {
 
     },
-    props: ['playoffs', 'order', 'prediction', 'spacing'], // usar spacing para que queden a distinto nivel
+    props: ['playoffs', 'order', 'prediction'], // usar spacing para que queden a distinto nivel
     data() {
         return {
             children: {},
@@ -20,7 +20,7 @@ export default {
                 second: {}
             },
             selected: "",
-            gridPosition: {}
+            isParent: null
         }
     },
     mounted() {
@@ -31,6 +31,7 @@ export default {
         if (this.order >= 9 && this.order <= 15) {
             this.children.first = this.thisPlayoff.Teams[0].order
             this.children.second = this.thisPlayoff.Teams[1].order
+            this.isParent = true
         }
         if (this.order >= 1 && this.order <= 8) {
             const teamName1 = this.prediction.groups.find((g) => {
@@ -45,11 +46,7 @@ export default {
             }).Name
             this.teams.first.Name = teamName1
             this.teams.second.Name = teamName2
-
-        }
-
-        if (this.order) {
-
+            this.isParent = false
         }
 
     },
@@ -64,7 +61,7 @@ export default {
                 const team2 = this.$refs[`${this.order}-2`]
                 team2.erase()
             }
-            if (Object.keys(this.children).length !== 0) {
+            if (this.isParent) {
                 console.log(this.children)
                 const playoff1 = this.$refs[this.children.first]
                 playoff1.eraseSelections()
@@ -73,7 +70,7 @@ export default {
             }
         },
         assignTeam(order, name) {
-            if (Object.keys(this.children).length !== 0) {
+            if (this.isParent) {
                 // asignar equipos para que puedan renderizarse
                 // recibo de mis hijos los equipos seleccionados
                 // si no tengo hijos ignoro
@@ -85,7 +82,7 @@ export default {
             }
         },
         eraseTeam(name) {
-            if (Object.keys(this.children).length !== 0) {
+            if (this.isParent) {
                 if (this.teams.first.Name === name) {
                     this.teams.first = {}
                 } else if (this.teams.second.Name === name) {
@@ -116,33 +113,115 @@ export default {
 </script>
 
 <template >
-    <div >
-        <div>
-            <p>
-                {{ this.thisPlayoff.Date }}
-            </p>
-            <div v-if="this.teams.first.Name && this.teams.second.Name">
-                <Team :team="this.teams.first" :ref="`${this.order}-1`" />
-                <Team :team="this.teams.second" :ref="`${this.order}-2`" />
+    <div class="playoff">
+        <div :class="{ 'playoff-parent': this.isParent }">
+            <div>
+                <p>
+                    {{ this.thisPlayoff.Date }}
+                </p>
+                <div v-if="this.teams.first.Name && this.teams.second.Name">
+                    <Team :team="this.teams.first" :ref="`${this.order}-1`" />
+                    <Team :team="this.teams.second" :ref="`${this.order}-2`" />
+                </div>
+            </div>
+        </div>
+        
+        <div v-if="this.isParent">
+            <div class="playoff-children">
+                <div class="playoff-child">
+                    <Playoff :playoffs="this.playoffs" :order="this.children.first" :prediction="this.prediction"
+                        :ref="`${this.children.first}`" />
+                </div>
+                <div class="playoff-child">
+                    <Playoff :playoffs="this.playoffs" :order="this.children.second" :prediction="this.prediction"
+                        :ref="`${this.children.second}`" />
+                </div>
             </div>
         </div>
 
-        <!-- class="flex justify-end  bg-white shadow rounded border hover:border-blue-500" -->
-        <div v-if="Object.keys(this.children).length !== 0">
-            <div class="col-start-3 col-end-3 row-start-1 row-end-1">
-                <Playoff :playoffs="this.playoffs" :order="this.children.first" :prediction="this.prediction"
-                    :ref="`${this.children.first}`" :spacing="spacing + 10" />
-            </div>
+        <!-- <Suspense> -->
+        <!-- class="bg-stone-400 shadow rounded border hover:border-blue-500" -->
 
-            <div class="col-start-5 col-end-5 row-start-3 row-end-3">
-                <Playoff :playoffs="this.playoffs" :order="this.children.second" :prediction="this.prediction"
-                    :ref="`${this.children.second}`" :spacing="spacing + 10" />
-            </div>
+        <!-- </Suspense> -->
 
-        </div>
     </div>
-    <!-- <Suspense> -->
-    <!-- class="bg-stone-400 shadow rounded border hover:border-blue-500" -->
-
-    <!-- </Suspense> -->
 </template>
+
+<style>
+
+/* body {
+    height: 100%;
+} */
+
+.playoffs-content {
+    display: flex;
+    justify-content: center;
+}
+
+.playoff {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.playoff-parent {
+    position: relative;
+    margin-left: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.playoff-parent:after {
+    position: absolute;
+    content: '';
+    width: 25px;
+    height: 2px;
+    left: 0;
+    top: 50%;
+    background-color: rgb(0, 0, 0);
+    transform: translateX(-100%);
+}
+
+.playoff-childrens {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.playoff-child {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.playoff-child:before {
+    content: '';
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    right: 0;
+    top: 50%;
+    transform: translateX(100%);
+    width: 25px;
+    height: 2px;
+}
+
+.playoff-child:after {
+    content: '';
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    right: -25px;
+    height: calc(50% + 22px);
+    width: 2px;
+    top: 50%;
+}
+
+.playoff-child:last-child:after {
+    transform: translateY(-100%);
+}
+
+.playoff-child:only-child:after {
+    display: none;
+}
+</style>
