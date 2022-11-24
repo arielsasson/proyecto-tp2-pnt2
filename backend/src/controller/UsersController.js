@@ -12,7 +12,7 @@ class UsersController {
     static login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userService = new UserService();
-            res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
+            res.header("Access-Control-Allow-Origin", "http://localhost:5173");
             const loginResult = yield userService.login(req.body.Username, req.body.Password);
             console.log(loginResult);
             if (loginResult.Error === "") {
@@ -29,7 +29,7 @@ class UsersController {
     static add(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userService = new UserService();
-            res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
+            res.header("Access-Control-Allow-Origin", "http://localhost:5173");
             yield userService.add(req.body);
             res.send("ok");
             const result = yield userService.add(req.body);
