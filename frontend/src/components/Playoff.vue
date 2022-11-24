@@ -1,5 +1,5 @@
 <script>
-// https://dev.to/vcpablo/vuejs-recursive-components-2549 Revisar el tema de los :node para evitar el bucle infinito
+// https://dev.to/vcpablo/vuejs-recursive-components-2549
 
 
 import Team from '../components/Team.vue'
@@ -10,7 +10,7 @@ export default {
     setup() {
 
     },
-    props: ['playoffs', 'order', 'prediction'], // usar spacing para que queden a distinto nivel
+    props: ['playoffs', 'order', 'prediction'],
     data() {
         return {
             children: {},
@@ -112,10 +112,10 @@ export default {
 }
 </script>
 
-<template >
-    <div class="playoff">
+<template>
+    <div class="playoff bg-slate-200 shadow-md rounded border-stone-800 text-center place-self-center m-1">
         <div :class="{ 'playoff-parent': this.isParent }">
-            <div>
+            <div class="w-48 h-32">
                 <p>
                     {{ this.thisPlayoff.Date }}
                 </p>
@@ -125,7 +125,7 @@ export default {
                 </div>
             </div>
         </div>
-        
+
         <div v-if="this.isParent">
             <div class="playoff-children">
                 <div class="playoff-child">
@@ -138,17 +138,10 @@ export default {
                 </div>
             </div>
         </div>
-
-        <!-- <Suspense> -->
-        <!-- class="bg-stone-400 shadow rounded border hover:border-blue-500" -->
-
-        <!-- </Suspense> -->
-
     </div>
 </template>
 
 <style>
-
 /* body {
     height: 100%;
 } */
