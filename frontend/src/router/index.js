@@ -10,7 +10,6 @@ const GroupsView = () => import('../views/GroupsView.vue')
 const PlayoffsView = () => import('../views/PlayoffsView.vue')
 const Predictions = () => import('../views/Predictions.vue')
 const About = () => import('../views/About.vue')
-const treeComponent = () => import('../views/treeComponent.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,10 +51,6 @@ const router = createRouter({
       path: '/playoffs',
       name: 'playoffs',
       component: PlayoffsView
-    },{
-      path: '/treeComponent',
-      name: 'treeComponent',
-      component: treeComponent
     }
   ]
 })

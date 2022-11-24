@@ -19,7 +19,7 @@ import { ref, onErrorCaptured } from 'vue'
 
 </script>
 
-<template>
+<template >
     <Navbar />
     <!-- <div class="flex items-center justify-center h-100" v-if="error">
         <div class="f2 montserrat gray mr2">!</div>
@@ -31,16 +31,3 @@ import { ref, onErrorCaptured } from 'vue'
     <Footer />
 </template>
 
-<!-- <style scoped>
-.logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-}
-.logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style> -->

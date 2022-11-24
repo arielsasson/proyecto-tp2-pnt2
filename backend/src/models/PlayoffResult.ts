@@ -1,6 +1,6 @@
 import Team from '../models/Team';
 
-class Playoff {
+class PlayoffResult {
     Order: Number;
     Winner: Team;
     Loser: Team;
@@ -17,4 +17,4 @@ class Playoff {
 }
 
 
-export default Playoff
+export default PlayoffResult

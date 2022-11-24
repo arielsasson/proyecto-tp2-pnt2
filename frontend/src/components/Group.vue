@@ -52,12 +52,12 @@ export default {
 </script>
 
 <template>
-    <div class="grid text-center  place-self-center gap-3 m-3">
-        <div class="mb-1.5">
+    <div class="grid text-center place-self-center gap-2 m-4">
+        <div class="mb-1.5 text-black font-black text-xl">
             Grupo {{ group.Letter }}
         </div>
         <div v-for="team in group.Teams" :key="team.Name"
-            class="text-center p-1 text-gray-500 bg-white shadow-xl border border-gray-100 rounded-2xl font-medium ">
+            class="text-center p-1 text-gray-800 bg-slate-100 shadow-xl border border-slate-400 rounded-2xl font-medium ">
             <Team :team="team" :ref="`${team.Name}`" />
         </div>
     </div>

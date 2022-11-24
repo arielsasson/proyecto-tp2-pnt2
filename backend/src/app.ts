@@ -18,7 +18,7 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
-app.use(unless(JWT.authenticateJWT, "/api/users/login", "api/users"));
+// app.use(unless(JWT.authenticateJWT, "/api/users/login", "api/users"));
 
 new GroupRouter(app,"/api/groups");
 new UsersRouter(app,"/api/users");

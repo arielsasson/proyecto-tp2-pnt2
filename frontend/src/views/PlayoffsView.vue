@@ -31,6 +31,14 @@ export default {
     },
     methods: {
         save() {
+            let thisDate = Date.now()
+            this.prediction.Date = thisDate
+            let playoffsResults = []
+            this.$refs[15].getResults(playoffsResults)
+            this.prediction.Playoffs = playoffsResults
+            console.log(this.prediction)
+            // const res = await axios.post('http://localhost:3000/api/playoffs/defaults')
+
             // obtener fecha de la prediccion para despues poder ordenarlas
             // post a la base de datos, con playoffservice
             // this.updatePlayoffs() para guardarlo en el store, OPCIONAL
@@ -47,18 +55,27 @@ export default {
 </script>
 
 <template>
-    <div >
-        <div class="playoffs-content">
-            <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" ref="15" />
+    <div class="grid grid-cols-8">
+        <div class="col-start-1 col-end-8">
+            <div class="playoffs-content">
+                <Playoff :playoffs="this.playoffs" :order="15" :prediction="this.prediction" ref="15" />
+            </div>
+        </div>
+        <div class="col-start-8 col-end-8">
+            <div class="grid grid-rows-5 h-full">
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-bottom row-start-2 m-10 h-20"
+                    v-on:click="save">
+                    Guardar predicción
+                </button>
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded align-bottom row-start-4  m-10 h-20"
+                    v-on:click="eraseSelections">
+                    Borrar selecciones
+                </button>
+            </div>
         </div>
     </div>
 
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
-        v-on:click="save">
-        Guardar predicción
-    </button>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
-        v-on:click="eraseSelections">
-        Borrar selecciones
-    </button>
+
 </template>

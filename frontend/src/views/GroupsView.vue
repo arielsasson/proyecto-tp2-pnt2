@@ -63,20 +63,21 @@ export default {
         <!-- <Group :group="this.groups[0]"
         :ref="`${this.groups[0].Letter}`" /> -->
         <div v-for="group in groups" :key="group.Name"
-            class="w-60 h-120 bg-white shadow rounded border border-transparent hover:border-blue-500 m-5">
+            class="w-80 h-120 bg-slate-300 shadow rounded border border-transparent hover:border-violet-600 m-5 ">
             <div class="gap-3 ">
                 <Group :group='group' :ref="`${group.Letter}`" />
             </div>
         </div>
     </div>
-    <div>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
-            v-on:click="confirm">
-            Confirmar selección
-        </button>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom"
+    <div class="grid grid-cols-6">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom col-start-2 m-4 "
             v-on:click="eraseSelections">
             Borrar selecciones
         </button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3 align-bottom col-start-5 m-4"
+            v-on:click="confirm">
+            Continuar ➔
+        </button>
+        
     </div>
 </template>

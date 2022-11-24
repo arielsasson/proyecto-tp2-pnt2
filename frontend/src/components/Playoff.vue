@@ -34,12 +34,12 @@ export default {
             this.isParent = true
         }
         if (this.order >= 1 && this.order <= 8) {
-            const teamName1 = this.prediction.groups.find((g) => {
+            const teamName1 = this.prediction.Groups.find((g) => {
                 return g.Letter === this.thisPlayoff.Teams[0].group
             }).Teams.find((t) => {
                 return t.Position === "first"
             }).Name
-            const teamName2 = this.prediction.groups.find((g) => {
+            const teamName2 = this.prediction.Groups.find((g) => {
                 return g.Letter === this.thisPlayoff.Teams[1].group
             }).Teams.find((t) => {
                 return t.Position === "second"
@@ -51,23 +51,43 @@ export default {
 
     },
     methods: {
-        eraseSelections() {
-            console.log(this.$refs)
-            if (Object.keys(this.$refs).includes(`${this.order}-1`)) {
-                const team1 = this.$refs[`${this.order}-1`]
-                team1.erase()
-            }
-            if (Object.keys(this.$refs).includes(`${this.order}-2`)) {
-                const team2 = this.$refs[`${this.order}-2`]
-                team2.erase()
-            }
+        getResults(unArray) {
             if (this.isParent) {
-                console.log(this.children)
+                const playoff1 = this.$refs[this.children.first]
+                playoff1.getResults(unArray)
+                const playoff2 = this.$refs[this.children.second]
+                playoff2.getResults(unArray)
+            }
+            unArray.push({
+                Order: this.order,
+                Winner: { Name: this.selected },
+                Loser: { Name: this.teams.first.Name === this.selected ? this.teams.second.Name : this.teams.first.Name }
+            })
+        },
+        eraseSelections() {
+
+            const team1 = this.$refs[`${this.order}-1`]
+            team1.erase()
+            const team2 = this.$refs[`${this.order}-2`]
+            team2.erase()
+
+            // if (Object.keys(this.$refs).includes(`${this.order}-1`)) {
+            //     const team1 = this.$refs[`${this.order}-1`]
+            //     team1.erase()
+            // }
+            // if (Object.keys(this.$refs).includes(`${this.order}-2`)) {
+            //     const team2 = this.$refs[`${this.order}-2`]
+            //     team2.erase()
+            // }
+            if (this.isParent) {
                 const playoff1 = this.$refs[this.children.first]
                 playoff1.eraseSelections()
                 const playoff2 = this.$refs[this.children.second]
                 playoff2.eraseSelections()
+                this.teams.first = {}
+                this.teams.second = {}
             }
+            this.selected = ""
         },
         assignTeam(order, name) {
             if (this.isParent) {
@@ -97,7 +117,7 @@ export default {
             if (this.checkEmpty(this.selected)) {
                 this.selected = name
                 this.$parent.assignTeam(this.order, name) // si order es 15 va a llamar a PlayoffsView, hay que definirlo (campeon mundial)
-                return "X"
+                return "🗸"
             } else if (this.selected === name) {
                 this.selected = ""
                 this.$parent.eraseTeam(name)
@@ -113,15 +133,23 @@ export default {
 </script>
 
 <template>
-    <div class="playoff bg-slate-200 shadow-md rounded border-stone-800 text-center place-self-center m-1">
+    <div class="playoff bg-slate-300 shadow-2xl rounded border-stone-800 text-center place-self-center m-0">
         <div :class="{ 'playoff-parent': this.isParent }">
-            <div class="w-48 h-32">
-                <p>
+            <div class="w-72 h-40 border rounded-lg border-amber-800">
+                <p class="font-black tracking-wide underline decoration-2 decoration-cyan-700 underline-offset-4 ">
                     {{ this.thisPlayoff.Date }}
                 </p>
-                <div v-if="this.teams.first.Name && this.teams.second.Name">
-                    <Team :team="this.teams.first" :ref="`${this.order}-1`" />
-                    <Team :team="this.teams.second" :ref="`${this.order}-2`" />
+                <div v-show="this.teams.first.Name && this.teams.second.Name">
+                    <div
+                        class="text-center text-gray-800 bg-slate-200 shadow-xl border border-slate-500 rounded-2xl m-2 ">
+                        <Team :team="this.teams.first" :ref="`${this.order}-1`" />
+                    </div>
+                    <div
+                        class="text-center text-gray-800 bg-slate-200 shadow-xl border border-slate-500 rounded-2xl m-2 ">
+                        <Team :team="this.teams.second" :ref="`${this.order}-2`" />
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -184,8 +212,9 @@ export default {
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 25px;
     position: relative;
 }
 
