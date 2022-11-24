@@ -4,7 +4,7 @@ import express from "express";
 class UsersController {
     static async login(req, res) {
         const userService: UserService = new UserService();
-        res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
+        res.header("Access-Control-Allow-Origin", "http://localhost:5173");
         const loginResult = await userService.login(
             req.body.Username,
             req.body.Password
@@ -21,7 +21,7 @@ class UsersController {
 
     static async add(req: express.Request, res: express.Response) {
         const userService: UserService = new UserService();
-        res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
+        res.header("Access-Control-Allow-Origin", "http://localhost:5173");
         await userService.add(req.body);
         res.send("ok");
         const result = await userService.add(req.body);
